@@ -3,31 +3,40 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    padding: 0px !important;
+    margin: 0px !important;
   }
 }
 
 body {
+  padding: 0px !important;
+  margin: 0px !important;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.ant-input,
+.ant-select-selector,
+.ant-btn,
+.ant-picker,
+.ant-segmented,
+.ant-segmented-item,
+.ant-input-affix-wrapper,
+.ant-qrcode,
+.ant-modal-content,
+.ant-notification-notice-wrapper,
+.ant-pagination-item,
+.ant-table-header,
+.ant-input-number-affix-wrapper,
+.ant-dropdown-menu {
+  border-radius: unset !important;
 }
