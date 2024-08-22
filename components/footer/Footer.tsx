@@ -42,7 +42,7 @@ export default function Footer() {
       </footer>
 
       <div className="bg-[#ededed] flex justify-center items-center py-1">
-        <Typography.Text className="font-thin">
+        <Typography.Text className="font-thin text-center">
           © Copyright 2024 All rights reserved SB Media USA Inc
         </Typography.Text>
       </div>
