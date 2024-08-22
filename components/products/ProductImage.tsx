@@ -1,5 +1,6 @@
 import { BookOutlined, ShopOutlined } from "@ant-design/icons";
 import { Affix, Button, Col, Image, Row, Typography } from "antd";
+import Order from "../orders/Order";
 
 export default function ProductImage() {
   const assets = [
@@ -36,13 +37,7 @@ export default function ProductImage() {
               </Row>
             </Image.PreviewGroup>
             <div className="h-[92px] flex flex-col items-end justify-end">
-              <Button
-                block
-                className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white"
-                icon={<ShopOutlined />}
-              >
-                Place order
-              </Button>
+              <Order />
               <div className="py-1" />
               <Button
                 block
