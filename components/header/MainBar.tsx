@@ -26,7 +26,12 @@ export default function MainBar() {
           onClick={() => router.push("/")}
         >
           <div className="flex justify-center items-center">
-            <Image src="brand.svg" alt="" preview={false} height={48} />
+            <Image
+              src="https://sbxcars.com/Assets/Logos/sbx-cars-sb-2024.svg"
+              alt=""
+              preview={false}
+              height={48}
+            />
           </div>
         </Col>
         <Col xs={20} md={6}>

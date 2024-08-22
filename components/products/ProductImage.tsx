@@ -1,4 +1,5 @@
-import { Col, Image, Row, Typography } from "antd";
+import { BookOutlined, ShopOutlined } from "@ant-design/icons";
+import { Button, Col, Image, Row, Typography } from "antd";
 
 export default function ProductImage() {
   const assets = [
@@ -15,17 +16,16 @@ export default function ProductImage() {
   return (
     <div className="">
       <Row gutter={8}>
-        <Col xs={24} md={18} className="h-[550px]">
-          <div
-            className="bg-center object-cover bg-cover bg-no-repeat bg-slate-100 w-full h-full"
-            style={{
-              backgroundImage: `url(https://i.sbxcars.com/cdn-cgi/image/width=900,height=1352,quality=80/auctions/60Lc8taIaaBSV9sGL512F3XpWzqXTF3Z/SBXHyperionVertical001.JPG)`,
-            }}
+        <Col xs={24} md={18} className="h-[500px]">
+          <img
+            className="!w-full h-full object-cover"
+            src="https://i.sbxcars.com/cdn-cgi/image/width=900,height=1352,quality=80/auctions/60Lc8taIaaBSV9sGL512F3XpWzqXTF3Z/SBXHyperionVertical001.JPG"
+            alt=""
           />
         </Col>
-        <Col xs={24} md={6} className="h-[550px] overflow-y-auto">
+        <Col xs={24} md={6} className="h-[500px]">
           <Image.PreviewGroup>
-            <Row gutter={8}>
+            <Row gutter={8} className="h-[400px] overflow-y-auto">
               {assets.map((asset) => (
                 <Col span={12}>
                   <Image src={asset} alt="" />
@@ -34,8 +34,22 @@ export default function ProductImage() {
             </Row>
           </Image.PreviewGroup>
 
-          <div className="p-4 bg-[#ad9d6f] cursor-pointer flex justify-center items-center">
-            <Typography.Text className="!text-white">More</Typography.Text>
+          <div className="h-[100px] flex flex-col items-end justify-end">
+            <Button
+              block
+              className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white"
+              icon={<ShopOutlined />}
+            >
+              Place order
+            </Button>
+            <div className="py-1" />
+            <Button
+              block
+              className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white"
+              icon={<BookOutlined />}
+            >
+              Book test a driver
+            </Button>
           </div>
         </Col>
       </Row>

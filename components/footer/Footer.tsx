@@ -9,7 +9,12 @@ export default function Footer() {
         <Row gutter={8}>
           <Col xs={24} md={8}>
             <div className="flex justify-center items-center py-3">
-              <Image src="brand.svg" alt="" preview={false} height={50} />
+              <Image
+                src="https://sbxcars.com/Assets/Logos/sbx-cars-sb-2024.svg"
+                alt=""
+                preview={false}
+                height={50}
+              />
             </div>
           </Col>
           <Col xs={24} md={8}>
