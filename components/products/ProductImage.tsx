@@ -1,6 +1,6 @@
-import { BookOutlined, ShopOutlined } from "@ant-design/icons";
-import { Affix, Button, Col, Image, Row, Typography } from "antd";
+import { Affix, Col, Image, Row } from "antd";
 import Order from "../orders/Order";
+import BookATestDriver from "../book-a-test-driver/BookATestDriver";
 
 export default function ProductImage() {
   const assets = [
@@ -39,13 +39,7 @@ export default function ProductImage() {
             <div className="h-[92px] flex flex-col items-end justify-end">
               <Order />
               <div className="py-1" />
-              <Button
-                block
-                className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white"
-                icon={<BookOutlined />}
-              >
-                Book test a driver
-              </Button>
+              <BookATestDriver />
             </div>
           </Affix>
         </Col>
