@@ -2,6 +2,7 @@
 import ProductImage from "@/components/products/ProductImage";
 import ProductInfor from "@/components/products/ProductInfor";
 import TabAll from "@/components/products/TabAll";
+import TabVideo from "@/components/products/TabVideo";
 import { Col, Row, Tabs, TabsProps } from "antd";
 
 const items: TabsProps["items"] = [
@@ -13,27 +14,27 @@ const items: TabsProps["items"] = [
   {
     key: "EXTERIOR",
     label: "EXTERIOR",
-    children: "Content of Tab Pane 2",
+    children: <TabAll />,
   },
   {
     key: "INTERIOR",
     label: "INTERIOR",
-    children: "Content of Tab Pane 3",
+    children: <TabAll />,
   },
   {
     key: "MECHANICAL",
     label: "MECHANICAL",
-    children: "Content of Tab Pane 3",
+    children: <TabAll />,
   },
   {
     key: "DOCUMENTS",
     label: "DOCUMENTS",
-    children: "Content of Tab Pane 3",
+    children: <TabAll />,
   },
   {
     key: "VIDEOS",
     label: "VIDEOS",
-    children: "Content of Tab Pane 3",
+    children: <TabVideo />,
   },
 ];
 
@@ -45,7 +46,12 @@ export default function ProductDetailPage() {
 
       <Row gutter={8} className="py-4">
         <Col xs={24} md={18}>
-          <Tabs defaultActiveKey="1" items={items} centered />
+          <Tabs
+            defaultActiveKey="1"
+            items={items}
+            centered
+            onChange={(e) => console.log(e)}
+          />
         </Col>
       </Row>
     </div>
