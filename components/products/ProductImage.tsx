@@ -1,5 +1,5 @@
 import { BookOutlined, ShopOutlined } from "@ant-design/icons";
-import { Button, Col, Image, Row, Typography } from "antd";
+import { Affix, Button, Col, Image, Row, Typography } from "antd";
 
 export default function ProductImage() {
   const assets = [
@@ -25,32 +25,34 @@ export default function ProductImage() {
         </Col>
 
         <Col xs={24} md={6} className="h-[500px] pt-2">
-          <Image.PreviewGroup>
-            <Row gutter={8} className="h-[400px] overflow-y-auto">
-              {assets.map((asset) => (
-                <Col span={12}>
-                  <Image src={asset} alt="" />
-                </Col>
-              ))}
-            </Row>
-          </Image.PreviewGroup>
-          <div className="h-[92px] flex flex-col items-end justify-end">
-            <Button
-              block
-              className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white"
-              icon={<ShopOutlined />}
-            >
-              Place order
-            </Button>
-            <div className="py-1" />
-            <Button
-              block
-              className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white"
-              icon={<BookOutlined />}
-            >
-              Book test a driver
-            </Button>
-          </div>
+          <Affix offsetTop={12}>
+            <Image.PreviewGroup>
+              <Row gutter={8} className="h-[400px] overflow-y-auto">
+                {assets.map((asset) => (
+                  <Col span={12}>
+                    <Image src={asset} alt="" />
+                  </Col>
+                ))}
+              </Row>
+            </Image.PreviewGroup>
+            <div className="h-[92px] flex flex-col items-end justify-end">
+              <Button
+                block
+                className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white"
+                icon={<ShopOutlined />}
+              >
+                Place order
+              </Button>
+              <div className="py-1" />
+              <Button
+                block
+                className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white"
+                icon={<BookOutlined />}
+              >
+                Book test a driver
+              </Button>
+            </div>
+          </Affix>
         </Col>
       </Row>
     </div>
