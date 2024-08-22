@@ -3,7 +3,7 @@ import ProductCarousel from "@/components/contents/ProductCarousel";
 
 export default function Home() {
   return (
-    <div className="px-2 md:px-10">
+    <div className="">
       <ProductCarousel />
       <Auctions />
     </div>

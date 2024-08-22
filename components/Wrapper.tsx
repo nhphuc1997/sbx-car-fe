@@ -8,7 +8,7 @@ export default function Wrapper({
   return (
     <AntdRegistry>
       <HeaderBar />
-      <main>{children}</main>
+      <main className="px-3 md:px-10">{children}</main>
       <Footer />
     </AntdRegistry>
   );

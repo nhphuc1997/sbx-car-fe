@@ -2,8 +2,11 @@
 import { Button, Typography } from "antd";
 import Products from "./Products";
 import { DownOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
 export default function Auctions() {
+  const router = useRouter();
+
   return (
     <div className="py-4">
       <div className="">
@@ -18,7 +21,10 @@ export default function Auctions() {
       </div>
 
       <div className="py-4 flex justify-center items-center">
-        <Button icon={<DownOutlined />} />
+        <Button
+          icon={<DownOutlined />}
+          onClick={() => router.push("/products")}
+        />
       </div>
     </div>
   );
