@@ -17,7 +17,7 @@ export default function Auctions() {
       </div>
 
       <div className="py-4">
-        <Products />
+        <Products numberItem={8} />
       </div>
 
       <div className="py-4 flex justify-center items-center">
