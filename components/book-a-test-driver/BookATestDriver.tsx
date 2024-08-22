@@ -37,7 +37,6 @@ export default function BookATestDriver() {
         closable={false}
         title={"Book a test driver"}
         open={openModal}
-        onClose={() => setOpenModal(false)}
         footer={[
           <Button
             onClick={() => setOpenModal(false)}

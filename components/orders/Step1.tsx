@@ -11,9 +11,12 @@ interface Props {
 }
 
 export default function Step1({ changeCurrentStep }: Props) {
+  const [form] = Form.useForm();
+
   return (
     <div className="p-4 border">
       <Form
+        form={form}
         name="wrap"
         labelCol={{ flex: "150px" }}
         labelAlign="left"
