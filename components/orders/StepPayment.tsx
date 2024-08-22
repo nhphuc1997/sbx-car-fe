@@ -7,8 +7,8 @@ import Step3 from "./Step3";
 export default function StepPayment() {
   const STEPS = [
     { title: "User Infor", disabled: true },
-    { title: "Pay" },
-    { title: "Successfully" },
+    { title: "Pay", disabled: true },
+    { title: "Successfully", disabled: true },
   ];
 
   const [current, setCurrent] = useState(0);
@@ -17,8 +17,8 @@ export default function StepPayment() {
     <div className="py-4">
       <Steps current={current} items={STEPS} onChange={(e) => setCurrent(e)} />
       <div className="py-4">
-        {current === 0 && <Step1 />}
-        {current === 1 && <Step2 />}
+        {current === 0 && <Step1 changeCurrentStep={() => setCurrent(1)} />}
+        {current === 1 && <Step2 changeCurrentStep={() => setCurrent(2)} />}
         {current === 2 && <Step3 />}
       </div>
     </div>

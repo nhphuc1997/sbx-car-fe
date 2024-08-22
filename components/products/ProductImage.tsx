@@ -29,8 +29,8 @@ export default function ProductImage() {
           <Affix offsetTop={12}>
             <Image.PreviewGroup>
               <Row gutter={8} className="h-[400px] overflow-y-auto">
-                {assets.map((asset) => (
-                  <Col span={12}>
+                {assets.map((asset, index: number) => (
+                  <Col span={12} key={index}>
                     <Image src={asset} alt="" />
                   </Col>
                 ))}

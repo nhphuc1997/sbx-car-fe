@@ -45,3 +45,7 @@ body {
   margin: 0 16px !important;
   padding: 16px 0px !important;
 }
+
+.ant-result-icon > .anticon {
+  color: #ad9d6f !important;
+}
