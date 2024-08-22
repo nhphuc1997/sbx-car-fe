@@ -16,7 +16,7 @@ export default function Footer() {
             <div className="flex justify-start items-center py-3">
               <Input className="" placeholder="Email address" />
               <Button
-                className="ml-2 !bg-black !text-white"
+                className="ml-2 !bg-[#ad9d6f] !text-white"
                 icon={<SendOutlined />}
               />
             </div>

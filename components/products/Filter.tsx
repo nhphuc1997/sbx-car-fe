@@ -25,7 +25,7 @@ export default function Filter() {
         <DatePicker className="w-full" picker="year" />
       </Col>
       <Col span={3}>
-        <Button icon={<DeleteOutlined />} className="!bg-black !text-white">
+        <Button icon={<DeleteOutlined />} className="!bg-[#ad9d6f] !text-white">
           Reset Filter
         </Button>
       </Col>

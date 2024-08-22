@@ -1,5 +1,6 @@
 "use client";
 import { Col, Row, Typography } from "antd";
+import { useRouter } from "next/navigation";
 
 interface Props {
   name?: string;
@@ -7,10 +8,18 @@ interface Props {
 }
 
 export default function Products({ numberItem = 6 }: Props) {
+  const router = useRouter();
+
   return (
     <Row gutter={12}>
       {[1, 3, 4, 4, 5, 6].map((item) => (
-        <Col xs={24} md={12} lg={numberItem}>
+        <Col
+          xs={24}
+          md={12}
+          lg={numberItem}
+          onClick={() => router.push(`/products/${item}`)}
+          className="cursor-pointer"
+        >
           <div className="mb-3 p-3 border">
             <div
               className="bg-center bg-cover bg-no-repeat bg-slate-100 h-[450px]"

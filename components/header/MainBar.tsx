@@ -22,14 +22,14 @@ export default function MainBar() {
             </div>
             <div className="mx-2">
               <Button
-                className="!bg-black !text-white !hidden md:!block"
-                icon={<LoginOutlined />}
+                className="!bg-[#ad9d6f] !text-white !hidden md:!block"
+                icon={<LoginOutlined className="mr-2" />}
               >
                 Sign In
               </Button>
 
               <Button
-                className="!bg-black !text-white !block md:!hidden"
+                className="!bg-[#ad9d6f] !text-white !block md:!hidden"
                 icon={<LoginOutlined />}
               />
             </div>
