@@ -1,7 +1,10 @@
+import { useLangStore } from "@/stores/lang.store";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Col, DatePicker, Input, Row, Select } from "antd";
 
 export default function Filter() {
+  const langStore = useLangStore((state: any) => state);
+
   return (
     <Row gutter={8}>
       <Col span={6}>
@@ -26,7 +29,7 @@ export default function Filter() {
       </Col>
       <Col span={3}>
         <Button icon={<DeleteOutlined />} className="!bg-[#ad9d6f] !text-white">
-          Reset Filter
+          {langStore.lang.resetFilter}
         </Button>
       </Col>
     </Row>

@@ -1,4 +1,5 @@
 "use client";
+import { useLangStore } from "@/stores/lang.store";
 import { Col, Row, Typography } from "antd";
 import { useRouter } from "next/navigation";
 
@@ -9,6 +10,7 @@ interface Props {
 
 export default function Products({ numberItem = 6 }: Props) {
   const router = useRouter();
+  const langStore = useLangStore((state: any) => state);
 
   return (
     <Row gutter={12}>
@@ -56,7 +58,7 @@ export default function Products({ numberItem = 6 }: Props) {
             <div className="pt-3 flex justify-between items-center">
               <div className="">
                 <Typography.Text className="font-semibold">
-                  Price
+                  {langStore.lang.price}
                 </Typography.Text>
                 <Typography.Text className="font-thin mx-2">
                   10,2000 $
@@ -65,7 +67,7 @@ export default function Products({ numberItem = 6 }: Props) {
 
               <div>
                 <Typography.Text className="font-semibold mr-2">
-                  Date
+                  {langStore.lang.date}
                 </Typography.Text>
                 <Typography.Text className="font-thin">
                   {new Date().toDateString()}

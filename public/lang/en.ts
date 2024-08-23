@@ -1,9 +1,10 @@
 export default {
-  indexHomePage: {
-    autions: "Auctions",
-    country: "Country",
-    all: "ALL",
-    price: "Price",
-    date: "Date",
-  },
+  autions: "Auctions",
+  country: "Country",
+  all: "ALL",
+  price: "Price",
+  date: "Date",
+  filter: "Filter",
+  resetFilter: "Reset Filter",
+  products: "Products",
 };
