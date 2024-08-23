@@ -12,8 +12,9 @@ export default function Products({ numberItem = 6 }: Props) {
 
   return (
     <Row gutter={12}>
-      {[1, 3, 4, 4, 5, 6].map((item) => (
+      {[1, 3, 4, 4, 5, 6].map((item, index: number) => (
         <Col
+          key={index}
           xs={24}
           md={12}
           lg={numberItem}
