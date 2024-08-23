@@ -1,6 +1,10 @@
 export default {
-  home: {
-    title: "Xin chào",
-    content: "Đây la cái gì đó",
-  },
+  autions: "Đấu giá",
+  country: "Quốc gia, khu vực",
+  all: "Tất cả",
+  price: "Giá",
+  date: "Ngày",
+  filter: "Lọc",
+  resetFilter: "Xoá bộ lọc",
+  products: "Sản phẩm",
 };
