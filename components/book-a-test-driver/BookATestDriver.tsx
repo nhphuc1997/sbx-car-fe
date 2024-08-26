@@ -1,3 +1,4 @@
+import { useLangStore } from "@/stores/lang.store";
 import {
   BookOutlined,
   CheckSquareOutlined,
@@ -12,8 +13,10 @@ type FieldType = {
 };
 
 export default function BookATestDriver() {
-  const btnSubmit = useRef<any>(null);
   const [form] = Form.useForm();
+  const langStore = useLangStore((state: any) => state);
+
+  const btnSubmit = useRef<any>(null);
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -30,19 +33,19 @@ export default function BookATestDriver() {
         icon={<BookOutlined />}
         onClick={() => setOpenModal(true)}
       >
-        Book a test driver
+        {langStore.lang.bookTest}
       </Button>
 
       <Modal
         closable={false}
-        title={"Book a test driver"}
+        title={langStore.lang.bookTest}
         open={openModal}
         footer={[
           <Button
             onClick={() => setOpenModal(false)}
             icon={<CloseSquareOutlined />}
           >
-            Cancel
+            {langStore.lang.cancel}
           </Button>,
           <Button
             className="!bg-[#ad9d6f] !text-white !border-[#ad9d6f]"
@@ -51,7 +54,7 @@ export default function BookATestDriver() {
             }}
             icon={<CheckSquareOutlined />}
           >
-            Submit
+            {langStore.lang.submit}
           </Button>,
         ]}
       >
@@ -66,7 +69,7 @@ export default function BookATestDriver() {
             onFinish={bookSchedule}
           >
             <Form.Item<FieldType>
-              label="Phone number"
+              label={langStore.lang.phoneNumber}
               name="phoneNumber"
               rules={[{ required: true }]}
             >
@@ -74,7 +77,7 @@ export default function BookATestDriver() {
             </Form.Item>
 
             <Form.Item<FieldType>
-              label="Date"
+              label={langStore.lang.date}
               name="date"
               rules={[{ required: true }]}
             >

@@ -22,4 +22,8 @@ export default {
   place_order: "Place order",
   vehicle_infor: "Vehicle Infor",
   pay: "Pay",
+  bookTest: "Book a test driver",
+  cancel: "cancel",
+  submit: "submit",
+  phoneNumber: "Phone number",
 };
