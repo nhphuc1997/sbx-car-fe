@@ -1,6 +1,9 @@
+import { useLangStore } from "@/stores/lang.store";
 import { Divider, Typography } from "antd";
 
 export default function ProductInfor() {
+  const langStore = useLangStore((state: any) => state);
+
   return (
     <div>
       <div className="py-2">
@@ -23,7 +26,7 @@ export default function ProductInfor() {
         <Divider type="vertical" className="!bg-black" />
 
         <Typography.Text className="font-thin !text-lg md:!text-2xl">
-          Date: {new Date().toDateString()}
+          {langStore.lang.date}: {new Date().toDateString()}
         </Typography.Text>
       </div>
     </div>

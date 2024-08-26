@@ -3,9 +3,11 @@ import { Button, Descriptions, Divider, Drawer, Typography } from "antd";
 import { useState } from "react";
 import VehicleInfor from "./VehicleInfor";
 import StepPayment from "./StepPayment";
+import { useLangStore } from "@/stores/lang.store";
 
 export default function Order() {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const langStore = useLangStore((state: any) => state);
 
   return (
     <div className="w-full">
@@ -15,7 +17,7 @@ export default function Order() {
         icon={<ShopOutlined />}
         onClick={() => setOpenDrawer(true)}
       >
-        Place order
+        {langStore.lang.place_order}
       </Button>
 
       <Drawer
@@ -27,7 +29,7 @@ export default function Order() {
         <div className="flex justify-between items-center">
           <div />
           <Typography.Title level={4} className="uppercase">
-            Place order
+            {langStore.lang.place_order}
           </Typography.Title>
 
           <Button
@@ -40,14 +42,14 @@ export default function Order() {
 
         <div>
           <Typography.Title level={5} className="capitalize">
-            Vehicle Infor
+            {langStore.lang.vehicle_infor}
           </Typography.Title>
           <VehicleInfor />
         </div>
 
         <div>
           <Typography.Title level={5} className="capitalize">
-            Pay
+            {langStore.lang.pay}
           </Typography.Title>
           <StepPayment />
         </div>
