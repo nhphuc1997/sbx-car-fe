@@ -61,19 +61,18 @@ export default function ProductImage({ dataInfor }: Props) {
           <Affix offsetTop={12}>
             <div className="flex flex-col h-[500px] justify-between">
               <div>
-                <Image.PreviewGroup>
-                  <Row gutter={8} className="">
-                    {map(data?.data, (asset, index) => (
-                      <Col span={12} key={index} className="">
-                        <Image
-                          height={110}
-                          src={`${S3_URL}/${asset?.s3Key}`}
-                          alt="s3Key"
-                        />
-                      </Col>
-                    ))}
-                  </Row>
-                </Image.PreviewGroup>
+                <Row gutter={8} className="">
+                  {map(data?.data, (asset, index) => (
+                    <Col span={12} key={index} className="pb-2">
+                      <div
+                        className=" bg-center bg-cover bg-no-repeat bg-slate-100 h-[100px]"
+                        style={{
+                          backgroundImage: `url(${S3_URL}/${asset?.s3Key})`,
+                        }}
+                      />
+                    </Col>
+                  ))}
+                </Row>
               </div>
 
               <div className="flex flex-col items-end justify-end space-y-2">
