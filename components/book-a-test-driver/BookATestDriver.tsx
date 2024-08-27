@@ -29,8 +29,8 @@ export default function BookATestDriver() {
     <div className="w-full">
       <Button
         block
-        className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white"
-        icon={<BookOutlined />}
+        className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
+        icon={<BookOutlined className="absolute left-2.5 top-1 bottom-1" />}
         onClick={() => setOpenModal(true)}
       >
         {langStore.lang.bookTest}

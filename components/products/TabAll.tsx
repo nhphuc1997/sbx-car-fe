@@ -104,10 +104,11 @@ export default function TabAll({ dataInfor }: Props) {
         <Typography.Title level={4}>
           {langStore.lang.description}
         </Typography.Title>
-        <div
-          className="p-4 bg-[#EAEAEA]"
-          dangerouslySetInnerHTML={{ __html: dataInfor?.description }}
-        />
+        <div className="p-4 bg-[#EAEAEA]">
+          <Typography.Paragraph className="text-pretty">
+            {dataInfor?.description}
+          </Typography.Paragraph>
+        </div>
       </div>
     </div>
   );
