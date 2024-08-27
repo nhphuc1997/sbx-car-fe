@@ -1,4 +1,8 @@
-export const formatDate = (date: string) => {
+import moment from 'moment';
+
+export const formatDate = (date: string, lang: any = "en") => {
   if (!date) return '--'
-  return new Date(date).toLocaleDateString()
+  const FORMAT = lang === "en" ? "LL" : "DD-MM-YYYY"
+
+  return moment().format(FORMAT)
 }

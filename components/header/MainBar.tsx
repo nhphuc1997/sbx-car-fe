@@ -44,6 +44,7 @@ export default function MainBar() {
               <Segmented
                 options={["en", "vi"]}
                 onChange={(value) => {
+                  localStorage.setItem("lang", value);
                   if (value === "en") {
                     langStore.setLang(en);
                     return;

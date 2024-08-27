@@ -1,6 +1,12 @@
 "use client";
 import { useLangStore } from "@/stores/lang.store";
+import { S3_URL } from "@/utils/aws";
+import { doGet } from "@/utils/doMethod";
+import { formatCurrency } from "@/utils/format-currency";
+import { formatDate } from "@/utils/format-date";
+import { useQuery } from "@tanstack/react-query";
 import { Col, Row, Typography } from "antd";
+import { map } from "lodash";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -12,44 +18,38 @@ export default function Products({ numberItem = 6 }: Props) {
   const router = useRouter();
   const langStore = useLangStore((state: any) => state);
 
+  const { data } = useQuery({
+    queryKey: ["get-products"],
+    queryFn: async () => await doGet("/cars"),
+  });
+
   return (
     <Row gutter={12}>
-      {[1, 3, 4, 4, 5, 6].map((item, index: number) => (
+      {map(data?.data, (element, index: number) => (
         <Col
           key={index}
           xs={24}
           md={12}
           lg={numberItem}
-          onClick={() => router.push(`/products/${item}`)}
+          onClick={() => router.push(`/products/${element?.id}`)}
           className="cursor-pointer"
         >
           <div className="mb-3 p-3 border">
             <div
               className="bg-center bg-cover bg-no-repeat bg-slate-100 h-[450px]"
-              style={{
-                backgroundImage: `url(https://i.sbxcars.com/cdn-cgi/image/width=900,height=1352,quality=80/auctions/60Lc8taIaaBSV9sGL512F3XpWzqXTF3Z/SBXHyperionVertical001.JPG)`,
-              }}
+              style={{ backgroundImage: `url(${S3_URL}/${element?.s3Key})` }}
             />
             <div className="mt-[-66px]">
               <div className="px-3 flex justify-between items-start md:items-center ">
                 <div className="">
                   <Typography.Paragraph className="!my-0 font-semibold !text-white">
-                    2023
+                    {element?.manufactureYear}
                   </Typography.Paragraph>
                   <Typography.Paragraph className="!my-0 font-semibold !text-white">
-                    Hyperion
+                    {element?.subTitle}
                   </Typography.Paragraph>
                   <Typography.Paragraph className="!my-0 font-semibold !text-white">
-                    XP-1 Prototype
-                  </Typography.Paragraph>
-                </div>
-
-                <div className="">
-                  <Typography.Paragraph className="!my-0 font-thin !text-white">
-                    orange
-                  </Typography.Paragraph>
-                  <Typography.Paragraph className="!my-0 font-thin !text-white">
-                    usa
+                    {element?.shortTitle}
                   </Typography.Paragraph>
                 </div>
               </div>
@@ -61,7 +61,7 @@ export default function Products({ numberItem = 6 }: Props) {
                   {langStore.lang.price}
                 </Typography.Text>
                 <Typography.Text className="font-thin mx-2">
-                  10,2000 $
+                  {formatCurrency(element?.price, localStorage.getItem("lang"))}
                 </Typography.Text>
               </div>
 
@@ -70,7 +70,7 @@ export default function Products({ numberItem = 6 }: Props) {
                   {langStore.lang.date}
                 </Typography.Text>
                 <Typography.Text className="font-thin">
-                  {new Date().toDateString()}
+                  {formatDate(element?.createAt, localStorage.getItem("lang"))}
                 </Typography.Text>
               </div>
             </div>

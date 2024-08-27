@@ -3,7 +3,6 @@ import { S3_URL } from "@/utils/aws";
 import { doGet } from "@/utils/doMethod";
 import { useQuery } from "@tanstack/react-query";
 import { Carousel } from "antd";
-import { log } from "console";
 import { map } from "lodash";
 
 export default function ProductCarousel() {
