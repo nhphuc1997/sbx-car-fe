@@ -60,7 +60,11 @@ export default function ProductImage({ dataInfor }: Props) {
                 <Row gutter={8} className="h-[400px] overflow-y-auto">
                   {map(data?.data, (asset, index) => (
                     <Col span={12} key={index}>
-                      <Image src={`${S3_URL}/${asset?.s3Key}`} alt="" />
+                      <Image
+                        height={110}
+                        src={`${S3_URL}/${asset?.s3Key}`}
+                        alt=""
+                      />
                     </Col>
                   ))}
                 </Row>
