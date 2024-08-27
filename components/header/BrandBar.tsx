@@ -12,8 +12,6 @@ export default function BrandBar() {
     },
   });
 
-  console.log(data);
-
   if (isLoading) {
     return (
       <div className="px-3 md:px-10 py-4">

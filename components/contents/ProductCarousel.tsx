@@ -1,25 +1,39 @@
-import { Carousel, Image } from "antd";
-
-const contentStyle: React.CSSProperties = {
-  margin: 0,
-  height: "160px",
-  color: "#fff",
-  lineHeight: "160px",
-  textAlign: "center",
-  background: "#364d79",
-};
+"use client";
+import { S3_URL } from "@/utils/aws";
+import { doGet } from "@/utils/doMethod";
+import { useQuery } from "@tanstack/react-query";
+import { Carousel } from "antd";
+import { log } from "console";
+import { map } from "lodash";
 
 export default function ProductCarousel() {
-  return (
-    <Carousel>
+  const { data, isLoading } = useQuery({
+    queryKey: ["get-product-banner"],
+    queryFn: async () => await doGet("/banners"),
+  });
+
+  console.log(data, "data");
+
+  if (isLoading) {
+    return (
       <div className="h-[150px] md:h-[450px]">
-        <div
-          className="bg-center bg-cover bg-no-repeat bg-slate-100 h-full"
-          style={{
-            backgroundImage: `url(https://i.sbxcars.com/cdn-cgi/image/width=3000,height=3000,quality=80/auctions/2a6a19d4-2013-4186-ae47-72d981eafda5/LM002%20-%20cover%20-%20black%20plate.jpg)`,
-          }}
-        />
+        <div className="bg-slate-100 h-full" />
       </div>
+    );
+  }
+
+  return (
+    <Carousel arrows autoplay>
+      {map(data?.data, (element, index) => (
+        <div className="h-[150px] md:h-[450px]" key={index}>
+          <div
+            className="bg-center bg-cover bg-no-repeat bg-slate-100 h-full"
+            style={{
+              backgroundImage: `url(${S3_URL}/${element?.s3Key})`,
+            }}
+          />
+        </div>
+      ))}
     </Carousel>
   );
 }
