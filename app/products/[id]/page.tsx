@@ -18,39 +18,6 @@ export default function ProductDetailPage() {
     queryFn: async () => await doGet(`/cars/${id}`),
   });
 
-  const items: TabsProps["items"] = [
-    {
-      key: "ALL",
-      label: langStore.lang.tabAll,
-      children: <TabAll />,
-    },
-    {
-      key: "EXTERIOR",
-      label: langStore.lang.tabExterior,
-      children: <TabAll />,
-    },
-    {
-      key: "INTERIOR",
-      label: langStore.lang.tabInterior,
-      children: <TabAll />,
-    },
-    {
-      key: "MECHANICAL",
-      label: langStore.lang.tabMechanical,
-      children: <TabAll />,
-    },
-    {
-      key: "DOCUMENTS",
-      label: langStore.lang.tabDocuments,
-      children: <TabAll />,
-    },
-    {
-      key: "VIDEOS",
-      label: langStore.lang.tabVideo,
-      children: <TabVideo />,
-    },
-  ];
-
   return (
     <div>
       <ProductInfor dataInfor={data?.data} isLoading={isLoading} />
@@ -58,7 +25,42 @@ export default function ProductDetailPage() {
 
       <Row gutter={8} className="py-4">
         <Col xs={24} md={18}>
-          <Tabs defaultActiveKey="1" items={items} centered />
+          <Tabs
+            defaultActiveKey="1"
+            items={[
+              {
+                key: "ALL",
+                label: langStore.lang.tabAll,
+                children: <TabAll dataInfor={data?.data} />,
+              },
+              {
+                key: "EXTERIOR",
+                label: langStore.lang.tabExterior,
+                children: <TabAll dataInfor={data?.data} />,
+              },
+              {
+                key: "INTERIOR",
+                label: langStore.lang.tabInterior,
+                children: <TabAll dataInfor={data?.data} />,
+              },
+              {
+                key: "MECHANICAL",
+                label: langStore.lang.tabMechanical,
+                children: <TabAll dataInfor={data?.data} />,
+              },
+              {
+                key: "DOCUMENTS",
+                label: langStore.lang.tabDocuments,
+                children: <TabAll dataInfor={data?.data} />,
+              },
+              {
+                key: "VIDEOS",
+                label: langStore.lang.tabVideo,
+                children: <TabVideo />,
+              },
+            ]}
+            centered
+          />
         </Col>
       </Row>
     </div>

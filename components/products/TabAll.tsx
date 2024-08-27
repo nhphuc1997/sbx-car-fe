@@ -1,7 +1,11 @@
 import { useLangStore } from "@/stores/lang.store";
 import { Descriptions, Typography } from "antd";
 
-export default function TabAll() {
+interface Props {
+  dataInfor: Record<string, any>;
+}
+
+export default function TabAll({ dataInfor }: Props) {
   const langStore = useLangStore((state: any) => state);
 
   return (
@@ -11,14 +15,18 @@ export default function TabAll() {
           <Typography.Text className="font-thin mr-2">
             {langStore.lang.auctionViews}
           </Typography.Text>
-          <Typography.Text className="font-semibold">28.79K</Typography.Text>
+          <Typography.Text className="font-semibold">
+            {dataInfor?.auctionViews}
+          </Typography.Text>
         </div>
 
         <div className="mx-2">
           <Typography.Text className="font-thin mr-2">
             {langStore.lang.watching}
           </Typography.Text>
-          <Typography.Text className="font-semibold">118</Typography.Text>
+          <Typography.Text className="font-semibold">
+            {dataInfor?.watching}
+          </Typography.Text>
         </div>
       </div>
 
@@ -55,25 +63,39 @@ export default function TabAll() {
       <div className="py-4">
         <Descriptions title="">
           <Descriptions.Item label="Seller">
-            <Typography.Text className="font-semibold">1</Typography.Text>
+            <Typography.Text className="font-semibold">
+              {dataInfor?.seller}
+            </Typography.Text>
           </Descriptions.Item>
           <Descriptions.Item label="Seller Type">
-            <Typography.Text className="font-semibold">1</Typography.Text>
+            <Typography.Text className="font-semibold">
+              {dataInfor?.sellerType}
+            </Typography.Text>
           </Descriptions.Item>
           <Descriptions.Item label="Exterior">
-            <Typography.Text className="font-semibold">1</Typography.Text>
+            <Typography.Text className="font-semibold">
+              {dataInfor?.exteriorName}
+            </Typography.Text>
           </Descriptions.Item>
           <Descriptions.Item label="Interior">
-            <Typography.Text className="font-semibold">1</Typography.Text>
+            <Typography.Text className="font-semibold">
+              {dataInfor?.interiorName}
+            </Typography.Text>
           </Descriptions.Item>
           <Descriptions.Item label="Lot#">
-            <Typography.Text className="font-semibold">1</Typography.Text>
+            <Typography.Text className="font-semibold">
+              {dataInfor?.lot}
+            </Typography.Text>
           </Descriptions.Item>
           <Descriptions.Item label="Location">
-            <Typography.Text className="font-semibold">1</Typography.Text>
+            <Typography.Text className="font-semibold">
+              {dataInfor?.location}
+            </Typography.Text>
           </Descriptions.Item>
           <Descriptions.Item label="Vehicle Make / Model">
-            <Typography.Text className="font-semibold">1</Typography.Text>
+            <Typography.Text className="font-semibold">
+              {dataInfor?.vehicleMake}
+            </Typography.Text>
           </Descriptions.Item>
         </Descriptions>
       </div>
@@ -84,7 +106,7 @@ export default function TabAll() {
         </Typography.Title>
         <div
           className="p-4 bg-[#EAEAEA]"
-          dangerouslySetInnerHTML={{ __html: "<p>aaa</p>" }}
+          dangerouslySetInnerHTML={{ __html: dataInfor?.description }}
         />
       </div>
     </div>
