@@ -10,12 +10,12 @@ export default function Wrapper({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <AntdRegistry>
+    <AntdRegistry>
+      <QueryClientProvider client={queryClient}>
         <HeaderBar />
         <main className="px-3 md:px-10">{children}</main>
         <Footer />
-      </AntdRegistry>
-    </QueryClientProvider>
+      </QueryClientProvider>  
+    </AntdRegistry>
   );
 }

@@ -58,29 +58,27 @@ export default function ProductImage({ dataInfor }: Props) {
         </Col>
 
         <Col xs={24} md={6} className="pt-2">
-          <Affix offsetTop={12}>
-            <div className="flex flex-col h-[492px] justify-between">
-              <div className="!h-[450px] overflow-y-auto">
-                <Row gutter={8} className="">
-                  {map(data?.data, (asset, index) => (
-                    <Col span={12} key={index} className="pb-2">
-                      <div
-                        className=" bg-center bg-cover bg-no-repeat bg-slate-100 h-[100px]"
-                        style={{
-                          backgroundImage: `url(${S3_URL}/${asset?.s3Key})`,
-                        }}
-                      />
-                    </Col>
-                  ))}
-                </Row>
-              </div>
-
-              <div className="pt-2 flex flex-col items-end justify-end space-y-2">
-                <Order />
-                <BookATestDriver />
-              </div>
+          <div className="flex flex-col h-[492px] justify-between">
+            <div className="!h-[450px] overflow-y-auto">
+              <Row gutter={8} className="">
+                {map(data?.data, (asset, index) => (
+                  <Col span={12} key={index} className="pb-2">
+                    <div
+                      className=" bg-center bg-cover bg-no-repeat bg-slate-100 h-[100px]"
+                      style={{
+                        backgroundImage: `url(${S3_URL}/${asset?.s3Key})`,
+                      }}
+                    />
+                  </Col>
+                ))}
+              </Row>
             </div>
-          </Affix>
+
+            <div className="pt-2 flex flex-col items-end justify-end space-y-2">
+              <Order />
+              <BookATestDriver />
+            </div>
+          </div>
         </Col>
       </Row>
     </div>
