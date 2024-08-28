@@ -11,8 +11,6 @@ export default function ProductCarousel() {
     queryFn: async () => await doGet("/banners"),
   });
 
-  console.log(data, "data");
-
   if (isLoading) {
     return (
       <div className="h-[150px] md:h-[450px]">

@@ -1,14 +1,19 @@
 "use client";
 import { useLangStore } from "@/stores/lang.store";
-import { LoginOutlined, MenuOutlined } from "@ant-design/icons";
+import { LoginOutlined, LogoutOutlined, MenuOutlined } from "@ant-design/icons";
 import { Button, Col, Image, Input, Row, Segmented } from "antd";
 import { useRouter } from "next/navigation";
 import en from "@/public/lang/en";
 import vi from "@/public/lang/vi";
+import { useClerk, useUser } from "@clerk/nextjs";
 
 export default function MainBar() {
+  const { isSignedIn, user } = useUser();
+  const { signOut, openSignIn } = useClerk();
   const router = useRouter();
   const langStore = useLangStore((state: any) => state);
+
+  console.log("isSignedIn", isSignedIn);
 
   return (
     <div className="px-2 py-3 md:py-4 md:px-10 border">
@@ -55,12 +60,25 @@ export default function MainBar() {
               />
             </div>
             <div className="mx-2">
-              <Button
-                className="!bg-[#ad9d6f] !text-white !hidden md:!block"
-                icon={<LoginOutlined className="mr-2" />}
-              >
-                Sign In
-              </Button>
+              {!isSignedIn && (
+                <Button
+                  className="!bg-[#ad9d6f] !text-white !hidden md:!block"
+                  icon={<LoginOutlined className="mr-2" />}
+                  onClick={() => openSignIn()}
+                >
+                  Sign In
+                </Button>
+              )}
+
+              {isSignedIn && (
+                <Button
+                  className="!bg-[#ad9d6f] !text-white !hidden md:!block"
+                  icon={<LogoutOutlined className="mr-2" />}
+                  onClick={() => signOut()}
+                >
+                  Sign out
+                </Button>
+              )}
 
               <Button
                 className="!bg-[#ad9d6f] !text-white !block md:!hidden"
