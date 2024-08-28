@@ -1,12 +1,14 @@
 "use client";
+import { useFilterStore } from "@/stores/filter.store";
 import { useLangStore } from "@/stores/lang.store";
 import { S3_URL } from "@/utils/aws";
 import { doGet } from "@/utils/doMethod";
 import { formatCurrency } from "@/utils/format-currency";
 import { formatDate } from "@/utils/format-date";
+import { LoadingOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
-import { Col, Row, Typography } from "antd";
-import { map } from "lodash";
+import { Col, Empty, Row, Spin, Typography } from "antd";
+import { divide, isEmpty, map } from "lodash";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -17,11 +19,62 @@ interface Props {
 export default function Products({ numberItem = 6 }: Props) {
   const router = useRouter();
   const langStore = useLangStore((state: any) => state);
+  const filterStore = useFilterStore((state: any) => state);
 
-  const { data } = useQuery({
-    queryKey: ["get-products"],
-    queryFn: async () => await doGet("/cars"),
+  const { data, isLoading } = useQuery({
+    queryKey: [
+      "get-products",
+      [
+        filterStore.nameVehicleFilter,
+        filterStore.categoryFilter,
+        filterStore.colorFilter,
+        filterStore.yearFilter,
+      ],
+    ],
+    queryFn: async () => {
+      const $filter: any = {};
+
+      if (!isEmpty(filterStore.nameVehicleFilter)) {
+        $filter["$or"] = [
+          { shortTitle: { $cont: filterStore.nameVehicleFilter } },
+          { subTitle: { $cont: filterStore.nameVehicleFilter } },
+        ];
+      }
+
+      if (filterStore.categoryFilter) {
+        $filter["categoryId"] = filterStore.categoryFilter;
+      }
+
+      if (filterStore.colorFilter) {
+        $filter["color"] = filterStore.colorFilter;
+      }
+
+      if (filterStore.yearFilter) {
+        $filter["manufactureYear"] = filterStore.yearFilter;
+      }
+
+      return await doGet("/cars", { s: JSON.stringify($filter) });
+    },
   });
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-[450px] border">
+        <Spin
+          spinning={true}
+          indicator={<LoadingOutlined className="!text-black" spin />}
+        />
+      </div>
+    );
+  }
+
+  if (data?.data?.length <= 0) {
+    return (
+      <div className="flex justify-center items-center h-[450px] border">
+        <Empty />
+      </div>
+    );
+  }
 
   return (
     <Row gutter={12}>

@@ -44,10 +44,6 @@ export default function Filter() {
       <Col span={3}>
         <div className="flex justify-start items-center space-x-2">
           <Button
-            icon={<SearchOutlined />}
-            className="!border-[#ad9d6f] !text-black"
-          />
-          <Button
             icon={<DeleteOutlined />}
             className="!bg-[#ad9d6f] !text-white"
             onClick={() => filterStore.resetFilter()}
