@@ -8,12 +8,10 @@ import vi from "@/public/lang/vi";
 import { useClerk, useUser } from "@clerk/nextjs";
 
 export default function MainBar() {
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn } = useUser();
   const { signOut, openSignIn } = useClerk();
   const router = useRouter();
   const langStore = useLangStore((state: any) => state);
-
-  console.log("isSignedIn", isSignedIn);
 
   return (
     <div className="px-2 py-3 md:py-4 md:px-10 border">
