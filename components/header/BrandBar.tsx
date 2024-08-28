@@ -1,14 +1,21 @@
 "use client";
+import { useFilterStore } from "@/stores/filter.store";
 import { doGet } from "@/utils/doMethod";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton, Typography } from "antd";
 import { map } from "lodash";
 
 export default function BrandBar() {
+  const filterStore = useFilterStore((state: any) => state);
+
   const { data, isLoading } = useQuery({
     queryKey: ["get-brand"],
     queryFn: async () => {
-      return await doGet("/categories");
+      const response = await doGet("/categories");
+      filterStore.setCategyOptions(
+        map(response?.data, (item) => ({ label: item?.name, value: item?.id }))
+      );
+      return response;
     },
   });
 
