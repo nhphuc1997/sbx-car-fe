@@ -8,7 +8,7 @@ import { formatDate } from "@/utils/format-date";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
 import { Col, Empty, Row, Spin, Typography } from "antd";
-import { delay, isEmpty, map } from "lodash";
+import { isEmpty, map } from "lodash";
 import { usePathname, useRouter } from "next/navigation";
 
 interface Props {

@@ -4,9 +4,16 @@ import { doGet } from "@/utils/doMethod";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton, Typography } from "antd";
 import { map } from "lodash";
+import { useRouter } from "next/navigation";
 
 export default function BrandBar() {
+  const router = useRouter();
   const filterStore = useFilterStore((state: any) => state);
+
+  const redirectToProductsPage = (name: Record<string, any>) => {
+    filterStore.setCategoryFilter(name?.id);
+    router.push("/products");
+  };
 
   const { data, isLoading } = useQuery({
     queryKey: ["get-brand"],
@@ -36,6 +43,7 @@ export default function BrandBar() {
           <Typography.Text
             key={index}
             className="text-base font-normal cursor-pointer"
+            onClick={() => redirectToProductsPage(element)}
           >
             {element?.name}
           </Typography.Text>
