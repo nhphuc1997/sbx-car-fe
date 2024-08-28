@@ -9,7 +9,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
 import { Col, Empty, Row, Spin, Typography } from "antd";
 import { delay, isEmpty, map } from "lodash";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   name?: string;
@@ -18,6 +18,7 @@ interface Props {
 
 export default function Products({ numberItem = 6 }: Props) {
   const router = useRouter();
+  const path = usePathname();
   const langStore = useLangStore((state: any) => state);
   const filterStore = useFilterStore((state: any) => state);
 
@@ -29,11 +30,15 @@ export default function Products({ numberItem = 6 }: Props) {
         filterStore.categoryFilter,
         filterStore.colorFilter,
         filterStore.yearFilter,
+        path,
       ],
     ],
     queryFn: async () => {
-      const $filter: any = {};
+      if (path === "/") {
+        return await doGet("/cars");
+      }
 
+      const $filter: any = {};
       if (!isEmpty(filterStore.nameVehicleFilter)) {
         $filter["$or"] = [
           { shortTitle: { $cont: filterStore.nameVehicleFilter } },
