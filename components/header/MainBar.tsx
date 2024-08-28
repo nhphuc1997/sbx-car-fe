@@ -1,14 +1,23 @@
 "use client";
 import { useLangStore } from "@/stores/lang.store";
 import { LoginOutlined, LogoutOutlined, MenuOutlined } from "@ant-design/icons";
-import { Button, Col, Image, Input, Row, Segmented } from "antd";
+import {
+  Avatar,
+  Button,
+  Col,
+  Image,
+  Input,
+  Row,
+  Segmented,
+  Typography,
+} from "antd";
 import { useRouter } from "next/navigation";
 import en from "@/public/lang/en";
 import vi from "@/public/lang/vi";
 import { useClerk, useUser } from "@clerk/nextjs";
 
 export default function MainBar() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
   const { signOut, openSignIn } = useClerk();
   const router = useRouter();
   const langStore = useLangStore((state: any) => state);
@@ -57,6 +66,7 @@ export default function MainBar() {
                 }}
               />
             </div>
+
             <div className="mx-2">
               {!isSignedIn && (
                 <Button
