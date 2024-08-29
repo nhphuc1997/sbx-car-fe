@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { useUser } from "@clerk/nextjs";
 import { useMutation } from "@tanstack/react-query";
-import { Button, DatePicker, Form, Input, Modal } from "antd";
+import { Button, DatePicker, Form, Input, Modal, notification } from "antd";
 import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -22,6 +22,8 @@ export default function BookATestDriver() {
   const { id } = useParams();
   const { user } = useUser();
   const langStore = useLangStore((state: any) => state);
+  const [api, contextHolder] = notification.useNotification();
+
   const btnSubmit = useRef<any>(null);
   const [openModal, setOpenModal] = useState(false);
 
@@ -29,6 +31,9 @@ export default function BookATestDriver() {
     mutationKey: ["book-test-driver"],
     mutationFn: async (payload: Record<string, any>) => {
       return await doPost("/book-tests", payload);
+    },
+    onSuccess(data, variables, context) {
+      setOpenModal(false);
     },
   });
 
@@ -41,11 +46,21 @@ export default function BookATestDriver() {
       user: user?.primaryEmailAddress?.emailAddress,
       date: date,
     });
+
+    api.open({
+      message: "Notification",
+      description:
+        "Book a test driver successfully. We will contact you as soon as possible!",
+      duration: 0,
+    });
+
     form.resetFields();
   };
 
   return (
     <div className="w-full">
+      {contextHolder}
+
       <Button
         block
         className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
