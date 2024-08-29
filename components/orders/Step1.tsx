@@ -1,5 +1,6 @@
 import { doPost } from "@/utils/doMethod";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { useUser } from "@clerk/nextjs";
 import { useMutation } from "@tanstack/react-query";
 import { Button, Form, Input } from "antd";
 import { useParams } from "next/navigation";
@@ -16,6 +17,7 @@ interface Props {
 export default function Step1({ changeCurrentStep }: Props) {
   const [form] = Form.useForm();
   const { id } = useParams();
+  const { user } = useUser();
 
   const mutation = useMutation({
     mutationKey: ["create-order"],
@@ -30,7 +32,7 @@ export default function Step1({ changeCurrentStep }: Props) {
       phoneNumber: phoneNumber,
       code: uuidv4(),
       carId: Number(id),
-      user: "",
+      user: user?.primaryEmailAddress?.emailAddress,
     });
     changeCurrentStep();
   };
