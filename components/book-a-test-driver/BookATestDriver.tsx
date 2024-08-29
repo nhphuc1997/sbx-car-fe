@@ -1,11 +1,16 @@
 import { useLangStore } from "@/stores/lang.store";
+import { doPost } from "@/utils/doMethod";
 import {
   BookOutlined,
   CheckSquareOutlined,
   CloseSquareOutlined,
 } from "@ant-design/icons";
+import { useUser } from "@clerk/nextjs";
+import { useMutation } from "@tanstack/react-query";
 import { Button, DatePicker, Form, Input, Modal } from "antd";
+import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 type FieldType = {
   phoneNumber?: string;
@@ -14,14 +19,28 @@ type FieldType = {
 
 export default function BookATestDriver() {
   const [form] = Form.useForm();
+  const { id } = useParams();
+  const { user } = useUser();
   const langStore = useLangStore((state: any) => state);
-
   const btnSubmit = useRef<any>(null);
-
   const [openModal, setOpenModal] = useState(false);
 
-  const bookSchedule = (value: FieldType) => {
+  const mutation = useMutation({
+    mutationKey: ["book-test-driver"],
+    mutationFn: async (payload: Record<string, any>) => {
+      return await doPost("/book-tests", payload);
+    },
+  });
+
+  const onFinish = (value: FieldType) => {
     const { phoneNumber, date } = value;
+    mutation.mutate({
+      phoneNumber: phoneNumber,
+      code: uuidv4(),
+      carId: Number(id),
+      user: user?.primaryEmailAddress?.emailAddress,
+      date: date,
+    });
     form.resetFields();
   };
 
@@ -42,12 +61,14 @@ export default function BookATestDriver() {
         open={openModal}
         footer={[
           <Button
+            key={"cancel"}
             onClick={() => setOpenModal(false)}
             icon={<CloseSquareOutlined />}
           >
             {langStore.lang.cancel}
           </Button>,
           <Button
+            key={"submit"}
             className="!bg-[#ad9d6f] !text-white !border-[#ad9d6f]"
             onClick={() => {
               btnSubmit?.current.click();
@@ -66,7 +87,7 @@ export default function BookATestDriver() {
             labelAlign="left"
             labelWrap
             wrapperCol={{ flex: 1 }}
-            onFinish={bookSchedule}
+            onFinish={onFinish}
           >
             <Form.Item<FieldType>
               label={langStore.lang.phoneNumber}

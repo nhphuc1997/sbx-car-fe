@@ -39,6 +39,7 @@ export default function Step1({ changeCurrentStep }: Props) {
       carId: Number(id),
       user: user?.primaryEmailAddress?.emailAddress,
     });
+    form.resetFields();
     changeCurrentStep();
   };
 
