@@ -34,6 +34,13 @@ export default function BookATestDriver() {
     },
     onSuccess(data, variables, context) {
       setOpenModal(false);
+      api.open({
+        message: "Notification",
+        description:
+          "Book a test driver successfully. We will contact you as soon as possible!",
+        duration: 0,
+      });
+      form.resetFields();
     },
   });
 
@@ -46,21 +53,11 @@ export default function BookATestDriver() {
       user: user?.primaryEmailAddress?.emailAddress,
       date: date,
     });
-
-    api.open({
-      message: "Notification",
-      description:
-        "Book a test driver successfully. We will contact you as soon as possible!",
-      duration: 0,
-    });
-
-    form.resetFields();
   };
 
   return (
     <div className="w-full">
       {contextHolder}
-
       <Button
         block
         className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
