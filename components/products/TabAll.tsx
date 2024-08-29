@@ -35,7 +35,7 @@ export default function TabAll({ dataInfor }: Props) {
           {langStore.lang.highlights}
         </Typography.Title>
         <ul className="!list-disc px-3">
-          <li>Hyperion 'Final Design Master' prototype vehicle</li>
+          <li>Hyperion &quot;Final Design Master&quot; prototype vehicle</li>
           <li>Drivable show car with fully-functioning features</li>
           <li>
             Finished in Satin Titanium Silver with Sky Blue, Space Black, and

@@ -52,7 +52,8 @@ export default function ProductImage({ dataInfor }: Props) {
     <div className="">
       <Row gutter={8}>
         <Col xs={24} md={18} className="h-[500px] pt-2">
-          <img
+          <Image
+            height={500}
             className="!w-full h-full object-cover"
             src={`${S3_URL}/${dataInfor?.s3Key}`}
             alt=""
