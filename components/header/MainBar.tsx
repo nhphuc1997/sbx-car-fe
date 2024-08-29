@@ -1,16 +1,7 @@
 "use client";
 import { useLangStore } from "@/stores/lang.store";
 import { LoginOutlined, LogoutOutlined, MenuOutlined } from "@ant-design/icons";
-import {
-  Avatar,
-  Button,
-  Col,
-  Image,
-  Input,
-  Row,
-  Segmented,
-  Typography,
-} from "antd";
+import { Button, Col, Image, Row, Segmented } from "antd";
 import { useRouter } from "next/navigation";
 import en from "@/public/lang/en";
 import vi from "@/public/lang/vi";

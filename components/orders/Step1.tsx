@@ -1,7 +1,8 @@
-import { useOrderStore } from "@/stores/order.store";
+import { doPost } from "@/utils/doMethod";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { useMutation } from "@tanstack/react-query";
 import { Button, Form, Input } from "antd";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 
 type FieldType = {
@@ -15,14 +16,21 @@ interface Props {
 export default function Step1({ changeCurrentStep }: Props) {
   const [form] = Form.useForm();
   const { id } = useParams();
-  const orderStore = useOrderStore((state: any) => state);
+
+  const mutation = useMutation({
+    mutationKey: ["create-order"],
+    mutationFn: async (payload: Record<string, any>) => {
+      return await doPost("/orders", payload);
+    },
+  });
 
   const onFinish = (value: FieldType) => {
     const { phoneNumber } = value;
-    orderStore.setOrderPayload({
+    mutation.mutate({
       phoneNumber: phoneNumber,
       code: uuidv4(),
       carId: Number(id),
+      user: "",
     });
     changeCurrentStep();
   };

@@ -1,13 +1,14 @@
-import { Affix, Col, Image, Row, Skeleton } from "antd";
+import { Affix, Col, Empty, Image, Row, Skeleton, Typography } from "antd";
 import Order from "../orders/Order";
 import BookATestDriver from "../book-a-test-driver/BookATestDriver";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { doGet } from "@/utils/doMethod";
-import { map } from "lodash";
+import { divide, map } from "lodash";
 import { S3_URL } from "@/utils/aws";
 import { useTabStore } from "@/stores/tab.store";
 import { getUrlsBaseOn } from "@/utils/tab";
+import { useUser } from "@clerk/nextjs";
 
 interface Props {
   dataInfor?: Record<string, any>;
@@ -16,6 +17,7 @@ interface Props {
 export default function ProductImage({ dataInfor }: Props) {
   const { id } = useParams();
   const tabStore = useTabStore((state: any) => state);
+  const { user } = useUser();
 
   const { data, isLoading } = useQuery({
     queryKey: ["get-exterior", [id, tabStore.tab]],
@@ -74,10 +76,22 @@ export default function ProductImage({ dataInfor }: Props) {
               </Row>
             </div>
 
-            <div className="pt-2 flex flex-col items-end justify-end space-y-2">
-              <Order />
-              <BookATestDriver />
-            </div>
+            {user && (
+              <div className="pt-2 flex flex-col items-end justify-end space-y-2">
+                <Order />
+                <BookATestDriver />
+              </div>
+            )}
+
+            {!user && (
+              <Empty
+                description={
+                  <Typography.Text>
+                    You must be login to perform this action
+                  </Typography.Text>
+                }
+              />
+            )}
           </div>
         </Col>
       </Row>
