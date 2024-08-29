@@ -1,3 +1,4 @@
+import { useOrderStore } from "@/stores/order.store";
 import { doPost } from "@/utils/doMethod";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useUser } from "@clerk/nextjs";
@@ -18,11 +19,15 @@ export default function Step1({ changeCurrentStep }: Props) {
   const [form] = Form.useForm();
   const { id } = useParams();
   const { user } = useUser();
+  const orderStore = useOrderStore((state: any) => state);
 
   const mutation = useMutation({
     mutationKey: ["create-order"],
     mutationFn: async (payload: Record<string, any>) => {
       return await doPost("/orders", payload);
+    },
+    onSuccess(data, variables, context) {
+      orderStore.setCode(data?.data?.code);
     },
   });
 
