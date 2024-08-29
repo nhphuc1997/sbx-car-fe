@@ -3,6 +3,7 @@ import ProductImage from "@/components/products/ProductImage";
 import ProductInfor from "@/components/products/ProductInfor";
 import TabAll from "@/components/products/TabAll";
 import TabVideo from "@/components/products/TabVideo";
+import { useCarStore } from "@/stores/car.store";
 import { useLangStore } from "@/stores/lang.store";
 import { useTabStore } from "@/stores/tab.store";
 import { doGet } from "@/utils/doMethod";
@@ -14,10 +15,15 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const langStore = useLangStore((state: any) => state);
   const tabStore = useTabStore((state: any) => state);
+  const carStore = useCarStore((state: any) => state);
 
   const { data, isLoading } = useQuery({
     queryKey: ["get-detail-product", [id]],
-    queryFn: async () => await doGet(`/cars/${id}`),
+    queryFn: async () => {
+      const response = await doGet(`/cars/${id}`);
+      carStore.setCar(response?.data);
+      return response;
+    },
   });
 
   return (

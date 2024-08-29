@@ -1,9 +1,11 @@
+import { useOrderStore } from "@/stores/order.store";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
 
 type FieldType = {
   phoneNumber?: string;
-  address?: string;
 };
 
 interface Props {
@@ -12,6 +14,18 @@ interface Props {
 
 export default function Step1({ changeCurrentStep }: Props) {
   const [form] = Form.useForm();
+  const { id } = useParams();
+  const orderStore = useOrderStore((state: any) => state);
+
+  const onFinish = (value: FieldType) => {
+    const { phoneNumber } = value;
+    orderStore.setOrderPayload({
+      phoneNumber: phoneNumber,
+      code: uuidv4(),
+      carId: Number(id),
+    });
+    changeCurrentStep();
+  };
 
   return (
     <div className="p-4 border">
@@ -23,7 +37,7 @@ export default function Step1({ changeCurrentStep }: Props) {
         labelWrap
         wrapperCol={{ flex: 1 }}
         colon={false}
-        onFinish={changeCurrentStep}
+        onFinish={onFinish}
       >
         <Form.Item<FieldType>
           label="Phone number"
@@ -31,14 +45,6 @@ export default function Step1({ changeCurrentStep }: Props) {
           rules={[{ required: true, message: "Please input value!" }]}
         >
           <Input placeholder="+84 6453718292" />
-        </Form.Item>
-
-        <Form.Item<FieldType>
-          label="Address"
-          name="address"
-          rules={[{ required: true, message: "Please input value!" }]}
-        >
-          <Input placeholder="84/12 New York City" />
         </Form.Item>
 
         <Form.Item label="">

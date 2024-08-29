@@ -14,6 +14,7 @@
     "@clerk/nextjs": "^5.3.6",
     "@tanstack/react-query": "^5.52.2",
     "@types/lodash": "^4.17.7",
+    "@types/uuid": "^10.0.0",
     "antd": "^5.20.2",
     "axios": "^1.7.5",
     "lodash": "^4.17.21",
@@ -21,6 +22,7 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "uuid": "^10.0.0",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
