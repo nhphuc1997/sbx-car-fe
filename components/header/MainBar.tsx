@@ -71,7 +71,7 @@ export default function MainBar() {
 
               {isSignedIn && (
                 <Button
-                  className="!bg-[#ad9d6f] !text-white !hidden md:!block"
+                  className="!border-[#ad9d6f] !text-black !hidden md:!block"
                   icon={<LogoutOutlined className="mr-2" />}
                   onClick={() => signOut()}
                 >
