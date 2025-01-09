@@ -76,7 +76,6 @@ export default function ProductImage({ dataInfor }: Props) {
             {user && (
               <div className="pt-2 flex flex-col items-end justify-end space-y-2">
                 <Order />
-                <BookATestDriver />
               </div>
             )}
 
