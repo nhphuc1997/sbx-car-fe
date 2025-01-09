@@ -24,24 +24,6 @@ export default function Filter() {
         />
       </Col>
       <Col span={3}>
-        <Select
-          value={filterStore.colorFilter}
-          className="w-full"
-          placeholder="Pick a color"
-          options={filterStore.colorOptions}
-          onChange={(e) => filterStore.setColorFilter(e)}
-        />
-      </Col>
-      <Col span={3}>
-        <DatePicker
-          value={filterStore.yearFilter}
-          className="w-full"
-          picker="year"
-          placeholder="Pick a year"
-          onChange={(e) => filterStore.setYearFilter(e)}
-        />
-      </Col>
-      <Col span={3}>
         <div className="flex justify-start items-center space-x-2">
           <Button
             icon={<DeleteOutlined />}

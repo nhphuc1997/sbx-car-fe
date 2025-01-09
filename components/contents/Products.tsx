@@ -35,7 +35,7 @@ export default function Products({ numberItem = 6 }: Props) {
     ],
     queryFn: async () => {
       if (path === "/") {
-        return await doGet("/cars");
+        return await doGet("/product");
       }
 
       const $filter: any = {};
@@ -95,40 +95,28 @@ export default function Products({ numberItem = 6 }: Props) {
           <div className="mb-3 p-3 border">
             <div
               className="bg-center bg-cover bg-no-repeat bg-slate-100 h-[450px]"
-              style={{ backgroundImage: `url(${S3_URL}/${element?.s3Key})` }}
+              style={{ backgroundImage: `url(${element?.thumnail})` }}
             />
-            <div className="mt-[-66px]">
-              <div className="px-3 flex justify-between items-start md:items-center ">
+            <div className="px-2">
+              <div className="flex justify-between items-start md:items-center ">
                 <div className="">
-                  <Typography.Paragraph className="!my-0 font-semibold !text-white">
-                    {element?.manufactureYear}
+                  <Typography.Paragraph className="!my-0 font-semibold !text-black">
+                    {element?.name}
                   </Typography.Paragraph>
-                  <Typography.Paragraph className="!my-0 font-semibold !text-white">
-                    {element?.subTitle}
-                  </Typography.Paragraph>
-                  <Typography.Paragraph className="!my-0 font-semibold !text-white">
-                    {element?.shortTitle}
+                  <Typography.Paragraph className="!my-0 font-semibold !text-black">
+                    {element?.categoryName}
                   </Typography.Paragraph>
                 </div>
               </div>
             </div>
 
-            <div className="pt-3 flex justify-between items-center">
+            <div className="flex justify-between items-center px-2">
               <div className="">
                 <Typography.Text className="font-semibold">
                   {langStore.lang.price}
                 </Typography.Text>
                 <Typography.Text className="font-thin mx-2">
                   {formatCurrency(element?.price, localStorage.getItem("lang"))}
-                </Typography.Text>
-              </div>
-
-              <div>
-                <Typography.Text className="font-semibold mr-2">
-                  {langStore.lang.date}
-                </Typography.Text>
-                <Typography.Text className="font-thin">
-                  {formatDate(element?.createAt, localStorage.getItem("lang"))}
                 </Typography.Text>
               </div>
             </div>
