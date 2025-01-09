@@ -1,6 +1,6 @@
 import { useFilterStore } from "@/stores/filter.store";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Col, DatePicker, Input, Row, Select } from "antd";
+import { Button, Col, Input, Row, Select } from "antd";
 
 export default function Filter() {
   const filterStore = useFilterStore((state: any) => state);
