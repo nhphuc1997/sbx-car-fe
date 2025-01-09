@@ -19,7 +19,7 @@ export default {
   technicalData: "Thông số kỹ thuật",
   vin: "VIN",
   description: "Mô tả",
-  place_order: "Đặt cọc",
+  place_order: "Thêm vào giỏ hàng",
   vehicle_infor: "Thông số sản phẩm",
   pay: "Thanh toán",
   bookTest: "Đặt lịch lái thử",
