@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: "/sbx-car",
+  basePath: "/super-market",
 };
 
 export default nextConfig;

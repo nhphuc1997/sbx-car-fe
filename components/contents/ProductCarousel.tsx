@@ -8,7 +8,7 @@ import { map } from "lodash";
 export default function ProductCarousel() {
   const { data, isLoading } = useQuery({
     queryKey: ["get-product-banner"],
-    queryFn: async () => await doGet("/banners"),
+    queryFn: async () => await doGet("/banner"),
   });
 
   if (isLoading) {
@@ -19,6 +19,8 @@ export default function ProductCarousel() {
     );
   }
 
+  console.log(JSON.stringify(data));
+
   return (
     <Carousel arrows autoplay>
       {map(data?.data, (element, index) => (
@@ -26,7 +28,7 @@ export default function ProductCarousel() {
           <div
             className="bg-center bg-cover bg-no-repeat bg-slate-100 h-full"
             style={{
-              backgroundImage: `url(${S3_URL}/${element?.s3Key})`,
+              backgroundImage: `url(${element?.url})`,
             }}
           />
         </div>

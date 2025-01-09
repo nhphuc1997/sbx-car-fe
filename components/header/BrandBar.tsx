@@ -18,7 +18,7 @@ export default function BrandBar() {
   const { data, isLoading } = useQuery({
     queryKey: ["get-brand"],
     queryFn: async () => {
-      const response = await doGet("/categories");
+      const response = await doGet("/category");
       filterStore.setCategyOptions(
         map(response?.data, (item) => ({ label: item?.name, value: item?.id }))
       );
