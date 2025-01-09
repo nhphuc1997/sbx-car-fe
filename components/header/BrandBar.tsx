@@ -20,7 +20,7 @@ export default function BrandBar() {
     queryFn: async () => {
       const response = await doGet("/category");
       filterStore.setCategyOptions(
-        map(response?.data, (item) => ({ label: item?.name, value: item?.id }))
+        map(response?.data, (item) => ({ label: item?.name, value: item?.name }))
       );
       return response;
     },

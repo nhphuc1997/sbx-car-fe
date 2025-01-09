@@ -20,13 +20,9 @@ export default function ProductImage({ dataInfor }: Props) {
   const { user } = useUser();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["get-exterior", [id, tabStore.tab]],
+    queryKey: ["get-product", [id, tabStore.tab]],
     queryFn: async () => {
-      const endpoint: any = getUrlsBaseOn(tabStore.tab);
-
-      return await doGet(endpoint, {
-        s: JSON.stringify({ carId: id }),
-      });
+      return await doGet(`product/${id}`);
     },
   });
 
@@ -49,13 +45,13 @@ export default function ProductImage({ dataInfor }: Props) {
   }
 
   return (
-    <div className="">
+    <div className="py-4">
       <Row gutter={8}>
         <Col xs={24} md={18} className="h-[500px] pt-2">
           <Image
             height={500}
             className="!w-full h-full object-cover"
-            src={`${S3_URL}/${dataInfor?.s3Key}`}
+            src={`${dataInfor?.thumnail}`}
             alt=""
           />
         </Col>
@@ -64,12 +60,12 @@ export default function ProductImage({ dataInfor }: Props) {
           <div className="flex flex-col h-[492px] justify-between">
             <div className="!h-[450px] overflow-y-auto">
               <Row gutter={8} className="">
-                {map(data?.data, (asset, index) => (
+                {map(dataInfor?.images.split(";"), (asset, index) => (
                   <Col span={12} key={index} className="pb-2">
                     <div
                       className=" bg-center bg-cover bg-no-repeat bg-slate-100 h-[100px]"
                       style={{
-                        backgroundImage: `url(${S3_URL}/${asset?.s3Key})`,
+                        backgroundImage: `url(${asset})`,
                       }}
                     />
                   </Col>

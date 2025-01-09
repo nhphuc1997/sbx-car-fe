@@ -25,13 +25,7 @@ export default function Products({ numberItem = 6 }: Props) {
   const { data, isLoading } = useQuery({
     queryKey: [
       "get-products",
-      [
-        filterStore.nameVehicleFilter,
-        filterStore.categoryFilter,
-        filterStore.colorFilter,
-        filterStore.yearFilter,
-        path,
-      ],
+      [filterStore.nameVehicleFilter, filterStore.categoryFilter, path],
     ],
     queryFn: async () => {
       if (path === "/") {
@@ -40,25 +34,14 @@ export default function Products({ numberItem = 6 }: Props) {
 
       const $filter: any = {};
       if (!isEmpty(filterStore.nameVehicleFilter)) {
-        $filter["$or"] = [
-          { shortTitle: { $cont: filterStore.nameVehicleFilter } },
-          { subTitle: { $cont: filterStore.nameVehicleFilter } },
-        ];
+        $filter["$or"] = [{ name: { $cont: filterStore.nameVehicleFilter } }];
       }
 
       if (filterStore.categoryFilter) {
-        $filter["categoryId"] = filterStore.categoryFilter;
+        $filter["categoryName"] = { $cont: filterStore.categoryFilter };
       }
 
-      if (filterStore.colorFilter) {
-        $filter["color"] = filterStore.colorFilter;
-      }
-
-      if (filterStore.yearFilter) {
-        $filter["manufactureYear"] = filterStore.yearFilter;
-      }
-
-      return await doGet("/cars", { s: JSON.stringify($filter) });
+      return await doGet("/product", { s: JSON.stringify($filter) });
     },
   });
 
@@ -80,6 +63,8 @@ export default function Products({ numberItem = 6 }: Props) {
       </div>
     );
   }
+
+  console.log(JSON.stringify(data?.data));
 
   return (
     <Row gutter={12}>
