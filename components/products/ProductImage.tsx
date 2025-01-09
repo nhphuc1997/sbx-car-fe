@@ -50,7 +50,7 @@ export default function ProductImage({ dataInfor }: Props) {
         <Col xs={24} md={18} className="h-[500px] pt-2">
           <Image
             height={500}
-            className="!w-full h-full object-cover"
+            className="!w-full h-full"
             src={`${dataInfor?.thumnail}`}
             alt=""
           />
