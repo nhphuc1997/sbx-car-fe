@@ -6,17 +6,21 @@ import {
   MenuOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Image, Row, Segmented } from "antd";
+import { Badge, Button, Col, Image, Row, Segmented } from "antd";
 import { useRouter } from "next/navigation";
 import en from "@/public/lang/en";
 import vi from "@/public/lang/vi";
 import { useClerk, useUser } from "@clerk/nextjs";
+import { useCartStore } from "@/stores/cart.store";
+import { useEffect, useState } from "react";
+import { initializePaddle, Paddle } from "@paddle/paddle-js";
 
 export default function MainBar() {
   const { isSignedIn, user } = useUser();
   const { signOut, openSignIn } = useClerk();
   const router = useRouter();
   const langStore = useLangStore((state: any) => state);
+  const cartStore = useCartStore((state: any) => state);
 
   return (
     <div className="px-2 py-3 md:py-4 md:px-10 border">
@@ -48,8 +52,13 @@ export default function MainBar() {
         </Col>
         <Col xs={20} md={6}>
           <div className="flex justify-end items-center !h-12">
-            <div className="mx-2">
-              <ShoppingCartOutlined />
+            <div
+              className="mx-2 cursor-pointer"
+              onClick={() => router.push("/pay")}
+            >
+              <Badge count={cartStore.products?.length} showZero size="small">
+                <ShoppingCartOutlined size={40} />
+              </Badge>
             </div>
 
             <div>
