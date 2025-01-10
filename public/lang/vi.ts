@@ -1,5 +1,8 @@
 export default {
-  autions: "Đấu giá",
+  autions: "Sản phẩm",
+  name: "Đấu giá",
+  type: "Loại",
+  taxCategory: "Loại thuế",
   country: "Quốc gia, khu vực",
   all: "Tất cả",
   price: "Giá",

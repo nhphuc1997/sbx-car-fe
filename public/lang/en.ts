@@ -1,5 +1,8 @@
 export default {
   autions: "Auctions",
+  name: "Name",
+  type: "Type",
+  taxCategory: "TaxCategory",
   country: "Country",
   all: "ALL",
   price: "Price",

@@ -7,7 +7,6 @@ import { LoadingOutlined, ShopOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Col, Empty, Row, Spin, Typography } from "antd";
 import { map } from "lodash";
-import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   name?: string;
@@ -15,8 +14,6 @@ interface Props {
 }
 
 export default function Products({ numberItem = 6 }: Props) {
-  const router = useRouter();
-  const path = usePathname();
   const langStore = useLangStore((state: any) => state);
   const cartStore = useCartStore((state: any) => state);
 
