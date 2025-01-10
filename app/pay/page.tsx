@@ -112,9 +112,9 @@ export default function Pay() {
       </Col>
       <Col span={12} className="px-4">
         <div className="py-2">
-          {map(cartStore.products, (item) => {
+          {map(cartStore.products, (item, index) => {
             return (
-              <div className="border p-4">
+              <div className="border p-4" key={index}>
                 <div className="flex justify-start items-start">
                   <div>
                     <img
