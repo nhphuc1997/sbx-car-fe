@@ -3,11 +3,9 @@ import { Button, Typography } from "antd";
 import Products from "./Products";
 import { DownOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { useLangStore } from "@/stores/lang.store";
 
 export default function Auctions() {
   const router = useRouter();
-  const langStore = useLangStore((state: any) => state);
 
   return (
     <div className="py-4">

@@ -19,8 +19,6 @@ export default function ProductCarousel() {
     );
   }
 
-  console.log(JSON.stringify(data));
-
   return (
     <Carousel arrows autoplay>
       {map(data?.data, (element, index) => (

@@ -1,17 +1,13 @@
 "use client";
-import { useFilterStore } from "@/stores/filter.store";
+import { useCartStore } from "@/stores/cart.store";
 import { useLangStore } from "@/stores/lang.store";
-import { S3_URL } from "@/utils/aws";
 import { doGet } from "@/utils/doMethod";
 import { formatCurrency } from "@/utils/format-currency";
-import { formatDate } from "@/utils/format-date";
-import { LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined, ShopOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Col, Empty, Row, Spin, Typography } from "antd";
-import { isEmpty, map } from "lodash";
+import { map } from "lodash";
 import { usePathname, useRouter } from "next/navigation";
-import { initializePaddle, Paddle } from "@paddle/paddle-js";
-import { useEffect, useState } from "react";
 
 interface Props {
   name?: string;
@@ -22,13 +18,10 @@ export default function Products({ numberItem = 6 }: Props) {
   const router = useRouter();
   const path = usePathname();
   const langStore = useLangStore((state: any) => state);
-  const filterStore = useFilterStore((state: any) => state);
+  const cartStore = useCartStore((state: any) => state);
 
   const { data, isLoading } = useQuery({
-    queryKey: [
-      "paddle-product",
-      [filterStore.nameVehicleFilter, filterStore.categoryFilter, path],
-    ],
+    queryKey: ["paddle-product"],
     queryFn: async () => {
       return await doGet("/paddle/product");
     },
@@ -52,6 +45,10 @@ export default function Products({ numberItem = 6 }: Props) {
       </div>
     );
   }
+
+  const addToCart = (product: any) => {
+    cartStore.setCart(product);
+  };
 
   return (
     <Row gutter={12}>
@@ -102,6 +99,16 @@ export default function Products({ numberItem = 6 }: Props) {
                   {element?.unitPrice?.currencyCode}
                 </Typography.Text>
               </div>
+            </div>
+
+            <div className="py-2">
+              <Button
+                onClick={() => addToCart(element)}
+                block
+                icon={<ShopOutlined />}
+              >
+                Add to cart
+              </Button>
             </div>
           </div>
         </Col>

@@ -48,6 +48,10 @@ export default function MainBar() {
         </Col>
         <Col xs={20} md={6}>
           <div className="flex justify-end items-center !h-12">
+            <div className="mx-2">
+              <ShoppingCartOutlined />
+            </div>
+
             <div>
               <Segmented
                 options={["en", "vi"]}
