@@ -77,6 +77,12 @@ export default function Products({ numberItem = 6 }: Props) {
                   <Typography.Paragraph className="!my-0 font-semibold !text-black">
                     {langStore.lang.type}: {element?.type}
                   </Typography.Paragraph>
+                  <Typography.Paragraph className="!my-0 font-semibold !text-black">
+                    {langStore.lang.taxCategory}: {element?.taxCategory}
+                  </Typography.Paragraph>
+                  <Typography.Paragraph className="!my-0 font-semibold !text-black">
+                    {langStore.lang.description}: {element?.description}
+                  </Typography.Paragraph>
                 </div>
               </div>
             </div>
