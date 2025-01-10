@@ -1,6 +1,11 @@
 "use client";
 import { useLangStore } from "@/stores/lang.store";
-import { LoginOutlined, LogoutOutlined, MenuOutlined } from "@ant-design/icons";
+import {
+  LoginOutlined,
+  LogoutOutlined,
+  MenuOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
 import { Button, Col, Image, Row, Segmented } from "antd";
 import { useRouter } from "next/navigation";
 import en from "@/public/lang/en";
