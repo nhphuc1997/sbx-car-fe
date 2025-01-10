@@ -1,6 +1,7 @@
 "use client";
 import { useCartStore } from "@/stores/cart.store";
 import { useLangStore } from "@/stores/lang.store";
+import { doPost } from "@/utils/doMethod";
 import { formatCurrency } from "@/utils/format-currency";
 import {
   AmazonSquareFilled,
@@ -10,6 +11,8 @@ import {
   PropertySafetyOutlined,
   SafetyCertificateFilled,
 } from "@ant-design/icons";
+import { useUser } from "@clerk/nextjs";
+import { useMutation } from "@tanstack/react-query";
 import {
   Button,
   Card,
@@ -17,10 +20,12 @@ import {
   Form,
   FormProps,
   Input,
+  notification,
   Row,
   Typography,
 } from "antd";
 import { map } from "lodash";
+import { v4 as uuidv4 } from "uuid";
 
 type FieldType = {
   username?: string;
@@ -28,15 +33,59 @@ type FieldType = {
 };
 
 export default function Pay() {
+  const { user } = useUser();
   const cartStore = useCartStore((state: any) => state);
   const langStore = useLangStore((state: any) => state);
+  const [form] = Form.useForm();
+  const [api, contextHolder] = notification.useNotification();
+
+  const mutation = useMutation({
+    mutationKey: ["create-order"],
+    mutationFn: async (payload: Record<string, any>) => {
+      return await doPost("/order", payload);
+    },
+    async onSuccess(data, variables, context) {
+      api.success({
+        message: `Order successfully`,
+        description: (
+          <Typography.Text>{`Your order code: ${data?.data?.order_number}`}</Typography.Text>
+        ),
+      });
+      await doPost("/order/send-order-sms", {
+        orderNumber: data?.data?.order_number,
+      });
+      form.resetFields();
+    },
+    onError() {
+      api.error({
+        message: ``,
+        description: (
+          <Typography.Text>Opps something happended</Typography.Text>
+        ),
+      });
+      form.resetFields();
+    },
+  });
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+    const { address, username } = values;
+    let price = 0;
+    const totalPrice = cartStore.products?.map(
+      (item: any) => (price += item?.unitPrice?.amount)
+    );
+    mutation.mutate({
+      address: address,
+      order_number: uuidv4(),
+      user_name: username,
+      total_price: price,
+      email: user?.primaryEmailAddress?.emailAddress,
+    });
+    form.resetFields();
   };
 
   return (
     <Row>
+      {contextHolder}
       <Col span={12}>
         <div>
           <Typography className="font-bold flex justify-center items-center py-3">
@@ -79,6 +128,7 @@ export default function Pay() {
               wrapperCol={{ span: 24 }}
               onFinish={onFinish}
               autoComplete="off"
+              form={form}
             >
               <Form.Item<FieldType>
                 label="Họ tên"
