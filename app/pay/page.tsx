@@ -39,7 +39,7 @@ export default function Pay() {
       <Col span={12}>
         <div>
           <Typography className="font-bold flex justify-center items-center py-3">
-            Thanh toán nhanh
+            {langStore.lang.quick_pay}
           </Typography>
           <div className="border p-4">
             <div className="py-2">
@@ -61,7 +61,7 @@ export default function Pay() {
 
         <div>
           <Typography className="font-bold flex justify-start items-center py-3">
-            Liên hệ
+            {langStore.lang.contact}
           </Typography>
           <div>
             <Input placeholder="Email" />
@@ -70,7 +70,7 @@ export default function Pay() {
 
         <div>
           <Typography className="font-bold flex justify-start items-center py-3">
-            Địa chỉ giao hàng
+            {langStore.lang.address}
           </Typography>
           <div>
             <Form
@@ -79,17 +79,25 @@ export default function Pay() {
               onFinish={onFinish}
               autoComplete="off"
             >
-              <Form.Item<FieldType> label="Họ tên" name="username">
+              <Form.Item<FieldType>
+                label="Họ tên"
+                name="username"
+                rules={[{ required: true, message: "Required" }]}
+              >
                 <Input placeholder="Họ tên" />
               </Form.Item>
 
-              <Form.Item<FieldType> label="Địa chỉ" name="address">
+              <Form.Item<FieldType>
+                label="Địa chỉ"
+                name="address"
+                rules={[{ required: true, message: "Required" }]}
+              >
                 <Input placeholder="Địa chỉ" />
               </Form.Item>
 
               <Form.Item label={null}>
                 <Button type="primary" htmlType="submit" block>
-                {langStore.lang.pay}
+                  {langStore.lang.pay}
                 </Button>
               </Form.Item>
             </Form>

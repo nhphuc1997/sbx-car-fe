@@ -29,4 +29,8 @@ export default {
   cancel: "cancel",
   submit: "submit",
   phoneNumber: "Phone number",
+  address: "address",
+  username: "user name",
+  contact: "contact",
+  quick_pay: "Quick pay",
 };
