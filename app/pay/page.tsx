@@ -7,6 +7,7 @@ import {
   GoogleCircleFilled,
   LikeFilled,
   PayCircleOutlined,
+  PropertySafetyOutlined,
   SafetyCertificateFilled,
 } from "@ant-design/icons";
 import {
@@ -72,7 +73,7 @@ export default function Pay() {
           <Typography className="font-bold flex justify-start items-center py-3">
             {langStore.lang.address}
           </Typography>
-          <div>
+          <div className="p-4 border">
             <Form
               name="basic"
               wrapperCol={{ span: 24 }}
@@ -96,7 +97,12 @@ export default function Pay() {
               </Form.Item>
 
               <Form.Item label={null}>
-                <Button type="primary" htmlType="submit" block>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  icon={<PropertySafetyOutlined />}
+                >
                   {langStore.lang.pay}
                 </Button>
               </Form.Item>
