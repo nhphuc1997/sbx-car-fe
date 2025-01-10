@@ -1,7 +1,7 @@
 "use client";
 import { useCartStore } from "@/stores/cart.store";
 import { useLangStore } from "@/stores/lang.store";
-import { doPost } from "@/utils/doMethod";
+import { doGet, doPost } from "@/utils/doMethod";
 import { formatCurrency } from "@/utils/format-currency";
 import {
   AmazonSquareFilled,
@@ -51,18 +51,7 @@ export default function Pay() {
           <Typography.Text>{`Your order code: ${data?.data?.order_number}`}</Typography.Text>
         ),
       });
-      await doPost("/order/send-order-sms", {
-        orderNumber: data?.data?.order_number,
-      });
-      form.resetFields();
-    },
-    onError() {
-      api.error({
-        message: ``,
-        description: (
-          <Typography.Text>Opps something happended</Typography.Text>
-        ),
-      });
+      await doGet(`/order/send-order-sms/${data?.data?.order_number}`);
       form.resetFields();
     },
   });
@@ -70,14 +59,12 @@ export default function Pay() {
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     const { address, username } = values;
     let price = 0;
-    const totalPrice = cartStore.products?.map(
-      (item: any) => (price += item?.unitPrice?.amount)
-    );
+    cartStore.products?.map((item: any) => (price += item?.unitPrice?.amount));
     mutation.mutate({
       address: address,
       order_number: uuidv4(),
       user_name: username,
-      total_price: price,
+      total_price: String(price),
       email: user?.primaryEmailAddress?.emailAddress,
     });
     form.resetFields();
