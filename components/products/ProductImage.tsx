@@ -4,7 +4,7 @@ import BookATestDriver from "../book-a-test-driver/BookATestDriver";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { doGet } from "@/utils/doMethod";
-import { divide, map } from "lodash";
+import { map } from "lodash";
 import { S3_URL } from "@/utils/aws";
 import { useTabStore } from "@/stores/tab.store";
 import { getUrlsBaseOn } from "@/utils/tab";

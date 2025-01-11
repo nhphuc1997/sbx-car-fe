@@ -9,10 +9,18 @@ import { useState } from "react";
 import VehicleInfor from "./VehicleInfor";
 import StepPayment from "./StepPayment";
 import { useLangStore } from "@/stores/lang.store";
+import { useShoppingCartStore } from "@/stores/shopping-cart.store";
+import { useCarStore } from "@/stores/car.store";
 
 export default function Order() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const langStore = useLangStore((state: any) => state);
+  const shoppingCartStore = useShoppingCartStore((state: any) => state);
+  const carStore = useCarStore((state: any) => state);
+
+  const addToCart = (product: any) => {
+    shoppingCartStore.setShoppingCart(product);
+  };
 
   return (
     <div className="w-full">
@@ -22,7 +30,7 @@ export default function Order() {
             block
             className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
             icon={<ShoppingCartOutlined className="" />}
-            onClick={() => setOpenDrawer(true)}
+            onClick={() => addToCart(carStore.product)}
           >
             {langStore.lang.add_to_cart}
           </Button>
