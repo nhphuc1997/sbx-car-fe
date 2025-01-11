@@ -31,4 +31,9 @@ export default {
   username: "user name",
   contact: "Contact",
   quick_pay: "Pay",
+  name: "Name",
+  location: "Location",
+  vehicleMake: "VehicleMake",
+  interiorName: "Interior Name",
+  exteriorName: "Exterior Name",
 };

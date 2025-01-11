@@ -27,27 +27,28 @@ import {
   Typography,
 } from "antd";
 import { map } from "lodash";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 type FieldType = {
-  username?: string;
+  phoneNumber?: string;
   address?: string;
 };
 
 export default function Pay() {
+  const { id } = useParams();
   const { user } = useUser();
-  const shoppingCartStore = useShoppingCartStore((state: any) => state);
-  const langStore = useLangStore((state: any) => state);
   const [form] = Form.useForm();
   const [api, contextHolder] = notification.useNotification();
-
+  const shoppingCartStore = useShoppingCartStore((state: any) => state);
+  const langStore = useLangStore((state: any) => state);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const mutation = useMutation({
     mutationKey: ["create-order"],
     mutationFn: async (payload: Record<string, any>) => {
-      return await doPost("/order", payload);
+      return await doPost("/orders", payload);
     },
     async onSuccess(data, variables, context) {
       showModal();
@@ -55,21 +56,16 @@ export default function Pay() {
     },
   });
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    const { address, username } = values;
-    let price = 0;
-    shoppingCartStore.products?.map(
-      (item: any) => (price += item?.unitPrice?.amount)
-    );
-    mutation.mutate({
-      address: address,
-      order_number: uuidv4(),
-      user_name: username,
-      total_price: String(price),
-      email: user?.primaryEmailAddress?.emailAddress,
-    });
-    form.resetFields();
-  };
+  const onFinish = (value: FieldType) => {
+      const { phoneNumber } = value;
+      mutation.mutate({
+        phoneNumber: phoneNumber,
+        code: uuidv4(),
+        carId: Number(id),
+        user: user?.primaryEmailAddress?.emailAddress,
+      });
+      form.resetFields();
+    };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -82,8 +78,6 @@ export default function Pay() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
-  console.log(shoppingCartStore.products);
 
   return (
     <Row>
@@ -131,13 +125,14 @@ export default function Pay() {
               onFinish={onFinish}
               autoComplete="off"
               form={form}
+              layout="vertical"
             >
               <Form.Item<FieldType>
-                label="Họ tên"
-                name="username"
+                label="Số điện thoại"
+                name="phoneNumber"
                 rules={[{ required: true, message: "Required" }]}
               >
-                <Input placeholder="Họ tên" />
+                <Input placeholder="Số điện thoại" />
               </Form.Item>
 
               <Form.Item<FieldType>
@@ -162,28 +157,45 @@ export default function Pay() {
         </div>
       </Col>
       <Col span={12} className="px-4">
-        <div className="py-2">
+        <div className="py-3 min-h-[46px]">
           {map(shoppingCartStore.products, (item, index) => {
             return (
               <div className="border p-4" key={index}>
                 <div className="flex justify-start items-start">
                   <div>
                     <Image
+                      preview={false}
                       alt="example"
                       src={`${S3_URL}/${item?.s3Key}`}
-                      className="w-28 h-28"
+                      className="!w-40 !h-40"
                     />
                   </div>
                   <div className="px-4">
                     <Typography.Paragraph strong className="!mb-0">
-                      {langStore.lang.name}: {item?.name}
+                      {langStore.lang.name}: &nbsp; {item?.name}
                     </Typography.Paragraph>
                     <Typography.Paragraph strong className="!mb-0">
-                      {langStore.lang.price}:
+                      {langStore.lang.price}: &nbsp;
                       {formatCurrency(
-                        item?.unitPrice?.amount,
+                        item?.price,
                         localStorage.getItem("lang")
                       )}
+                    </Typography.Paragraph>
+                    <Typography.Paragraph strong className="!mb-0">
+                      {langStore.lang.location}: &nbsp;
+                      {item?.location}
+                    </Typography.Paragraph>
+                    <Typography.Paragraph strong className="!mb-0">
+                      {langStore.lang.vehicleMake}: &nbsp;
+                      {item?.vehicleMake}
+                    </Typography.Paragraph>
+                    <Typography.Paragraph strong className="!mb-0">
+                      {langStore.lang.interiorName}: &nbsp;
+                      {item?.interiorName}
+                    </Typography.Paragraph>
+                    <Typography.Paragraph strong className="!mb-0">
+                      {langStore.lang.exteriorName}: &nbsp;
+                      {item?.exteriorName}
                     </Typography.Paragraph>
                   </div>
                 </div>

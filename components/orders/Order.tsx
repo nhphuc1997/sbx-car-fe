@@ -33,7 +33,7 @@ export default function Order() {
             block
             className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
             icon={<ShoppingCartOutlined className="" />}
-            onClick={() => addToCart(carStore.products)}
+            onClick={() => addToCart(carStore.car)}
           >
             {langStore.lang.add_to_cart}
           </Button>
