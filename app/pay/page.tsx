@@ -17,6 +17,8 @@ import { useMutation } from "@tanstack/react-query";
 import {
   Button,
   Col,
+  DatePicker,
+  DatePickerProps,
   Form,
   FormProps,
   Image,
@@ -28,7 +30,7 @@ import {
 } from "antd";
 import { map } from "lodash";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 type FieldType = {
@@ -36,14 +38,25 @@ type FieldType = {
   address?: string;
 };
 
+type FieldTypeAddCard = {
+  cardNumber?: string;
+  nameOnCard?: string;
+  expDate?: string;
+  cvv?: string;
+};
+
 export default function Pay() {
   const { id } = useParams();
   const { user } = useUser();
   const [form] = Form.useForm();
+  const [formAddCard] = Form.useForm();
   const [api, contextHolder] = notification.useNotification();
+
   const shoppingCartStore = useShoppingCartStore((state: any) => state);
   const langStore = useLangStore((state: any) => state);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const submitBtnRef = useRef<any>(null);
 
   const mutation = useMutation({
     mutationKey: ["create-order"],
@@ -56,23 +69,45 @@ export default function Pay() {
     },
   });
 
-  const onFinish = (value: FieldType) => {
-      const { phoneNumber } = value;
-      mutation.mutate({
-        phoneNumber: phoneNumber,
-        code: uuidv4(),
-        carId: Number(id),
-        user: user?.primaryEmailAddress?.emailAddress,
-      });
+  const mutationAddCard = useMutation({
+    mutationKey: ["add-card"],
+    mutationFn: async (payload: Record<string, any>) => {
+      return await doPost("/add-card", payload);
+    },
+    async onSuccess(data, variables, context) {
+      setIsModalOpen(false);
       form.resetFields();
-    };
+    },
+  });
+
+  const onFinish = (value: FieldType) => {
+    const { phoneNumber } = value;
+    mutation.mutate({
+      phoneNumber: phoneNumber,
+      code: uuidv4(),
+      carId: Number(id),
+      user: user?.primaryEmailAddress?.emailAddress,
+    });
+    form.resetFields();
+  };
+
+  const onFinishAddCard = (value: FieldTypeAddCard) => {
+    const { cardNumber, nameOnCard, expDate, cvv } = value;
+    mutationAddCard.mutate({
+      cardNumber,
+      nameOnCard,
+      expDate,
+      cvv,
+    });
+    form.resetFields();
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
+    submitBtnRef?.current?.click();
   };
 
   const handleCancel = () => {
@@ -120,7 +155,7 @@ export default function Pay() {
           </Typography>
           <div className="p-4 border">
             <Form
-              name="basic"
+              name="basic-2"
               wrapperCol={{ span: 24 }}
               onFinish={onFinish}
               autoComplete="off"
@@ -236,14 +271,88 @@ export default function Pay() {
       </Col>
 
       <Modal
-        title="Basic Modal"
+        title="Add a credit or debit card"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        width={700}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <Row>
+          <Col span={16}>
+            <Form
+              name="basic"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+              style={{ maxWidth: 600 }}
+              initialValues={{ remember: true }}
+              onFinish={onFinishAddCard}
+              autoComplete="off"
+              form={formAddCard}
+            >
+              <Form.Item<FieldTypeAddCard>
+                label="Card number"
+                name="cardNumber"
+                rules={[
+                  { required: true, message: "Please input your card number!" },
+                ]}
+              >
+                <Input placeholder="Card number" />
+              </Form.Item>
+
+              <Form.Item<FieldTypeAddCard>
+                label="Name on card"
+                name="nameOnCard"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your name on card!",
+                  },
+                ]}
+              >
+                <Input placeholder="Name on card!" />
+              </Form.Item>
+
+              <Form.Item<FieldTypeAddCard>
+                label="Expiration date"
+                name="expDate"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your expiration date!",
+                  },
+                ]}
+              >
+                <DatePicker picker="month" className="!w-full" />
+              </Form.Item>
+
+              <Form.Item<FieldTypeAddCard>
+                label="Security code"
+                name="cvv"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your security code!",
+                  },
+                ]}
+              >
+                <Input placeholder="Security code" />
+              </Form.Item>
+
+              <Button
+                ref={submitBtnRef}
+                htmlType="submit"
+                className="!hidden"
+              />
+            </Form>
+          </Col>
+          <Col span={6}>
+            <div className="px-2">
+              <Typography.Text>
+                Amazon accepts all major credit and debit cards:
+              </Typography.Text>
+            </div>
+          </Col>
+        </Row>
       </Modal>
     </Row>
   );
