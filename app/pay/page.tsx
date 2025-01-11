@@ -56,6 +56,7 @@ export default function Pay() {
   const langStore = useLangStore((state: any) => state);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [expDate, setExpDate] = useState<any>("");
   const submitBtnRef = useRef<any>(null);
 
   const mutation = useMutation({
@@ -92,11 +93,11 @@ export default function Pay() {
   };
 
   const onFinishAddCard = (value: FieldTypeAddCard) => {
-    const { cardNumber, nameOnCard, expDate, cvv } = value;
+    const { cardNumber, nameOnCard, cvv } = value;
     mutationAddCard.mutate({
       cardNumber,
       nameOnCard,
-      expDate,
+      expDate: expDate,
       cvv,
     });
     form.resetFields();
@@ -112,6 +113,10 @@ export default function Pay() {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
+    setExpDate(dateString);
   };
 
   return (
@@ -322,7 +327,11 @@ export default function Pay() {
                   },
                 ]}
               >
-                <DatePicker picker="month" className="!w-full" />
+                <DatePicker
+                  onChange={onChange}
+                  picker="month"
+                  className="!w-full"
+                />
               </Form.Item>
 
               <Form.Item<FieldTypeAddCard>
