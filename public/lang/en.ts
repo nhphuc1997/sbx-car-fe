@@ -26,5 +26,9 @@ export default {
   cancel: "cancel",
   submit: "submit",
   phoneNumber: "Phone number",
-  add_to_cart: "Add to cart"
+  add_to_cart: "Add to cart",
+  address: "Address",
+  username: "user name",
+  contact: "Contact",
+  quick_pay: "Pay",
 };
