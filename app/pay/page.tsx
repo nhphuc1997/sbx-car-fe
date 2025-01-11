@@ -73,11 +73,15 @@ export default function Pay() {
   const mutationAddCard = useMutation({
     mutationKey: ["add-card"],
     mutationFn: async (payload: Record<string, any>) => {
-      return await doPost("/add-card", payload);
+      return await doPost("/card", payload);
     },
     async onSuccess(data, variables, context) {
       setIsModalOpen(false);
-      form.resetFields();
+      api.success({
+        message: "",
+        description: "Order sucessfully",
+      });
+      formAddCard.resetFields();
     },
   });
 
