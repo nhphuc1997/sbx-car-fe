@@ -1,17 +1,24 @@
 "use client";
 import { useLangStore } from "@/stores/lang.store";
-import { LoginOutlined, LogoutOutlined, MenuOutlined } from "@ant-design/icons";
-import { Button, Col, Image, Row, Segmented } from "antd";
+import {
+  LoginOutlined,
+  LogoutOutlined,
+  MenuOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
+import { Badge, Button, Col, Image, Row, Segmented } from "antd";
 import { useRouter } from "next/navigation";
 import en from "@/public/lang/en";
 import vi from "@/public/lang/vi";
 import { useClerk, useUser } from "@clerk/nextjs";
+import { useShoppingCartStore } from "@/stores/shopping-cart.store";
 
 export default function MainBar() {
   const { isSignedIn, user } = useUser();
   const { signOut, openSignIn } = useClerk();
   const router = useRouter();
   const langStore = useLangStore((state: any) => state);
+  const shoppingCartStore = useShoppingCartStore((state: any) => state);
 
   return (
     <div className="px-2 py-3 md:py-4 md:px-10 border">
@@ -43,6 +50,20 @@ export default function MainBar() {
         </Col>
         <Col xs={20} md={6}>
           <div className="flex justify-end items-center !h-12">
+            <div className="mx-4">
+              <Badge
+                count={shoppingCartStore.products?.length}
+                showZero
+                size="small"
+              >
+                <Button
+                  type="text"
+                  shape="circle"
+                  icon={<ShoppingCartOutlined />}
+                />
+              </Badge>
+            </div>
+
             <div>
               <Segmented
                 options={["en", "vi"]}

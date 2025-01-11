@@ -1,4 +1,9 @@
-import { CloseOutlined, ShopOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  PayCircleOutlined,
+  ShopOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
 import { Button, Descriptions, Divider, Drawer, Typography } from "antd";
 import { useState } from "react";
 import VehicleInfor from "./VehicleInfor";
@@ -11,14 +16,39 @@ export default function Order() {
 
   return (
     <div className="w-full">
-      <Button
-        block
-        className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
-        icon={<ShopOutlined className="absolute left-2.5 top-1 bottom-1" />}
-        onClick={() => setOpenDrawer(true)}
-      >
-        {langStore.lang.place_order}
-      </Button>
+      <div className="w-full flex gap-2">
+        <div className="w-1/2">
+          <Button
+            block
+            className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
+            icon={<ShoppingCartOutlined className="" />}
+            onClick={() => setOpenDrawer(true)}
+          >
+            {langStore.lang.add_to_cart}
+          </Button>
+        </div>
+
+        <div className="w-1/2">
+          <Button
+            block
+            className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
+            icon={<PayCircleOutlined className="" />}
+          >
+            {langStore.lang.pay}
+          </Button>
+        </div>
+      </div>
+
+      <div className="pt-2">
+        <Button
+          block
+          className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
+          icon={<ShopOutlined className="absolute left-2.5 top-1 bottom-1" />}
+          onClick={() => setOpenDrawer(true)}
+        >
+          {langStore.lang.place_order}
+        </Button>
+      </div>
 
       <Drawer
         placement={"right"}

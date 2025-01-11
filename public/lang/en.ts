@@ -26,4 +26,5 @@ export default {
   cancel: "cancel",
   submit: "submit",
   phoneNumber: "Phone number",
+  add_to_cart: "Add to cart"
 };
