@@ -157,7 +157,7 @@ export default function Pay() {
                 block
                 icon={<AmazonSquareFilled />}
                 onClick={showModal}
-                className="!bg-yellow-500 !text-white"
+                className="!bg-yellow-600 !text-white"
               >
                 AmazonPay
               </Button>
@@ -166,7 +166,7 @@ export default function Pay() {
                 block
                 icon={<GoogleCircleFilled />}
                 onClick={showModal}
-                className="!bg-red-500 !text-white"
+                className="!bg-black !text-white"
               >
                 GooglePay
               </Button>
@@ -226,66 +226,69 @@ export default function Pay() {
         </div>
       </Col>
       <Col span={12} className="px-4">
-        <div className="min-h-[46px] max-h-[450px] overflow-y-auto mb-2">
-          {map(shoppingCartStore.products, (item, index) => {
-            return (
-              <div className="border p-4 mb-1" key={index}>
-                <div className="flex justify-start items-start">
-                  <div>
-                    <Image
-                      preview={false}
-                      alt="example"
-                      src={`${S3_URL}/${item?.s3Key}`}
-                      className="!w-40 !h-40"
-                    />
-                  </div>
-                  <div className="px-4">
-                    <Typography.Paragraph strong className="!mb-0">
-                      {langStore.lang.name}: &nbsp; {item?.name}
-                    </Typography.Paragraph>
-                    <Typography.Paragraph strong className="!mb-0">
-                      {langStore.lang.price}: &nbsp;
-                      {formatCurrency(
-                        item?.price,
-                        localStorage.getItem("lang")
-                      )}
-                    </Typography.Paragraph>
-                    <Typography.Paragraph strong className="!mb-0">
-                      {langStore.lang.location}: &nbsp;
-                      {item?.location}
-                    </Typography.Paragraph>
-                    <Typography.Paragraph strong className="!mb-0">
-                      {langStore.lang.vehicleMake}: &nbsp;
-                      {item?.vehicleMake}
-                    </Typography.Paragraph>
-                    <Typography.Paragraph strong className="!mb-0">
-                      {langStore.lang.interiorName}: &nbsp;
-                      {item?.interiorName}
-                    </Typography.Paragraph>
-                    <Typography.Paragraph strong className="!mb-0">
-                      {langStore.lang.exteriorName}: &nbsp;
-                      {item?.exteriorName}
-                    </Typography.Paragraph>
+        <div className="mb-2 border p-4 rounded-lg">
+          <div className="min-h-[46px] max-h-[450px] overflow-y-auto">
+            {map(shoppingCartStore.products, (item, index) => {
+              return (
+                <div className="mb-2 border-b-[1px]" key={index}>
+                  <div className="flex justify-start items-start">
+                    <div>
+                      <Image
+                        preview={false}
+                        alt="example"
+                        src={`${S3_URL}/${item?.s3Key}`}
+                        className="!w-40 !h-40"
+                      />
+                    </div>
+                    <div className="px-4">
+                      <Typography.Paragraph strong className="!mb-0">
+                        {langStore.lang.name}: &nbsp; {item?.name}
+                      </Typography.Paragraph>
+                      <Typography.Paragraph strong className="!mb-0">
+                        {langStore.lang.price}: &nbsp;
+                        {formatCurrency(
+                          item?.price,
+                          localStorage.getItem("lang")
+                        )}
+                      </Typography.Paragraph>
+                      <Typography.Paragraph strong className="!mb-0">
+                        {langStore.lang.location}: &nbsp;
+                        {item?.location}
+                      </Typography.Paragraph>
+                      <Typography.Paragraph strong className="!mb-0">
+                        {langStore.lang.vehicleMake}: &nbsp;
+                        {item?.vehicleMake}
+                      </Typography.Paragraph>
+                      <Typography.Paragraph strong className="!mb-0">
+                        {langStore.lang.interiorName}: &nbsp;
+                        {item?.interiorName}
+                      </Typography.Paragraph>
+                      <Typography.Paragraph strong className="!mb-0">
+                        {langStore.lang.exteriorName}: &nbsp;
+                        {item?.exteriorName}
+                      </Typography.Paragraph>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          <div className="flex justify-end items-center py-2 border-t-[1px]">
+            <Typography.Text className="!font-bold">
+              Total Price:{" "}
+              {formatCurrency(
+                shoppingCartStore.products.reduce(
+                  (accumulator: any, currentValue: any) =>
+                    accumulator + currentValue?.price,
+                  0
+                )
+              )}
+            </Typography.Text>
+          </div>
         </div>
 
-        <div className="flex justify-end items-center py-2">
-          <Typography.Text className="!font-bold">
-            Total Price:{" "}
-            {formatCurrency(
-              shoppingCartStore.products.reduce(
-                (accumulator: any, currentValue: any) =>
-                  accumulator + currentValue?.price,
-                0
-              )
-            )}
-          </Typography.Text>
-        </div>
-        <div className="p-4 border">
+        <div className="p-4 border rounded-lg">
           <div className="my-2">
             <Typography className="font-bold">
               <SafetyCertificateFilled /> Mua với sự an tâm
@@ -309,10 +312,12 @@ export default function Pay() {
         </div>
 
         <div className="py-2">
-          <div className="p-4 border">
+          <div className="p-4 border rounded-lg">
             <Typography className="font-bold">
               <SafetyCertificateFilled /> Thanh toán an toàn 100%
             </Typography>
+
+            <Image src="assets/visa.png" />
           </div>
         </div>
       </Col>
