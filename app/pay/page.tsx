@@ -389,18 +389,30 @@ export default function Pay() {
               />
             </Form>
           </Col>
-          <Col span={6}>
+          <Col span={8}>
             <div className="px-2">
-              <Typography.Text>
+              <Typography.Paragraph className="text-center">
                 Amazon accepts all major credit and debit cards:
-              </Typography.Text>
-
+              </Typography.Paragraph>
               <div className="w-5 h-10 py-2">
-                <Image width={200} height={100} preview={false} src="assets/visa.png" />
+                <Image
+                  width={200}
+                  height={100}
+                  preview={false}
+                  src="assets/visa.png"
+                />
               </div>
             </div>
           </Col>
         </Row>
+
+        <div className="border-t-[1px] pt-2">
+          <Typography.Paragraph>
+            To avoid interruptions to your service, your added card may be used
+            as a backup if another payment method fails. You can change this
+            setting in Your Payments anytime.
+          </Typography.Paragraph>
+        </div>
       </Modal>
     </Row>
   );
