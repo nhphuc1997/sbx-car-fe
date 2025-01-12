@@ -50,7 +50,7 @@ export default function MainBar() {
         </Col>
         <Col xs={20} md={6}>
           <div className="flex justify-end items-center !h-12">
-            <div className="mx-4">
+            <div className="mx-4" onClick={() => router.push("/pay")}>
               <Badge
                 count={shoppingCartStore.products?.length}
                 showZero

@@ -4,7 +4,14 @@ import {
   ShopOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Button, Descriptions, Divider, Drawer, Typography } from "antd";
+import {
+  Button,
+  Descriptions,
+  Divider,
+  Drawer,
+  notification,
+  Typography,
+} from "antd";
 import { useState } from "react";
 import VehicleInfor from "./VehicleInfor";
 import StepPayment from "./StepPayment";
@@ -15,6 +22,7 @@ import { useRouter } from "next/navigation";
 
 export default function Order() {
   const router = useRouter();
+  const [api, contextHolder] = notification.useNotification();
   const langStore = useLangStore((state: any) => state);
   const shoppingCartStore = useShoppingCartStore((state: any) => state);
   const carStore = useCarStore((state: any) => state);
@@ -22,11 +30,16 @@ export default function Order() {
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const addToCart = (product: any) => {
+    api.info({
+      message: ``,
+      description: `Add to cart successfully`,
+    });
     shoppingCartStore.setShoppingCart(product);
   };
 
   return (
     <div className="w-full">
+      {contextHolder}
       <div className="w-full flex gap-2">
         <div className="w-1/2">
           <Button

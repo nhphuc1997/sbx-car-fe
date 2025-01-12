@@ -28,7 +28,7 @@ import {
   Row,
   Typography,
 } from "antd";
-import { map } from "lodash";
+import { divide, map } from "lodash";
 import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -134,9 +134,6 @@ export default function Pay() {
       {contextHolder}
       <Col span={12}>
         <div>
-          <Typography className="font-bold flex justify-center items-center py-3">
-            {langStore.lang.quick_pay}
-          </Typography>
           <div className="border p-4">
             <div className="py-2">
               <Button
@@ -222,10 +219,10 @@ export default function Pay() {
         </div>
       </Col>
       <Col span={12} className="px-4">
-        <div className="py-3 min-h-[46px]">
+        <div className="min-h-[46px] max-h-[450px] overflow-y-auto mb-2">
           {map(shoppingCartStore.products, (item, index) => {
             return (
-              <div className="border p-4" key={index}>
+              <div className="border p-4 mb-1" key={index}>
                 <div className="flex justify-start items-start">
                   <div>
                     <Image
@@ -267,6 +264,19 @@ export default function Pay() {
               </div>
             );
           })}
+        </div>
+
+        <div className="flex justify-end items-center">
+          <Typography.Text>
+            Total Price:{" "}
+            {formatCurrency(
+              shoppingCartStore.products.reduce(
+                (accumulator: any, currentValue: any) =>
+                  accumulator + currentValue?.price,
+                0
+              )
+            )}
+          </Typography.Text>
         </div>
         <div className="p-4 border">
           <div className="my-2">
