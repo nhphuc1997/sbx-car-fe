@@ -197,19 +197,19 @@ export default function Pay() {
               layout="vertical"
             >
               <Form.Item<FieldType>
-                label="Số điện thoại"
+                label="Phone number"
                 name="phoneNumber"
                 rules={[{ required: true, message: "Required" }]}
               >
-                <Input placeholder="Số điện thoại" />
+                <Input placeholder="Phone number" />
               </Form.Item>
 
               <Form.Item<FieldType>
-                label="Địa chỉ"
+                label="Adress"
                 name="address"
                 rules={[{ required: true, message: "Required" }]}
               >
-                <Input placeholder="Địa chỉ" />
+                <Input placeholder="Adress" />
               </Form.Item>
 
               <Form.Item label={null}>
@@ -226,7 +226,7 @@ export default function Pay() {
         </div>
       </Col>
       <Col span={12} className="px-4">
-        <div className="mb-2 border p-4 rounded-lg">
+        <div className="mb-2 border p-4 ">
           <div className="min-h-[46px] max-h-[450px] overflow-y-auto">
             {map(shoppingCartStore.products, (item, index) => {
               return (
@@ -288,7 +288,7 @@ export default function Pay() {
           </div>
         </div>
 
-        <div className="p-4 border rounded-lg">
+        <div className="p-4 border ">
           <div className="my-2">
             <Typography className="font-bold">
               <SafetyCertificateFilled /> Mua với sự an tâm
@@ -312,7 +312,7 @@ export default function Pay() {
         </div>
 
         <div className="py-2">
-          <div className="p-4 border rounded-lg">
+          <div className="p-4 border ">
             <Typography className="font-bold">
               <SafetyCertificateFilled /> Thanh toán an toàn 100%
             </Typography>
