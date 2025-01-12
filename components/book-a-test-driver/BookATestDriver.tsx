@@ -35,7 +35,7 @@ export default function BookATestDriver() {
     onSuccess(data, variables, context) {
       setOpenModal(false);
       api.open({
-        message: "Notification",
+        message: "System notification",
         description:
           "Book a test driver successfully. We will contact you as soon as possible!",
         duration: 0,

@@ -78,7 +78,7 @@ export default function Pay() {
     async onSuccess(data, variables, context) {
       setIsModalOpen(false);
       api.success({
-        message: "",
+        message: "System notification",
         description: "Order sucessfully",
       });
       await doPost(`/card/send-message`, {
@@ -114,6 +114,13 @@ export default function Pay() {
   };
 
   const showModal = () => {
+    if (shoppingCartStore.products?.length <= 0) {
+      api.info({
+        message: `System notification`,
+        description: `Sorry, you don't have any products to perform pay action`,
+      });
+      return;
+    }
     setIsModalOpen(true);
   };
 

@@ -31,7 +31,7 @@ export default function Order() {
 
   const addToCart = (product: any) => {
     api.info({
-      message: ``,
+      message: `System notification`,
       description: `Add to cart successfully`,
     });
     shoppingCartStore.setShoppingCart(product);
