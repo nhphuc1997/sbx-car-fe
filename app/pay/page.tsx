@@ -28,7 +28,7 @@ import {
   Row,
   Typography,
 } from "antd";
-import { divide, map } from "lodash";
+import { map } from "lodash";
 import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -266,8 +266,8 @@ export default function Pay() {
           })}
         </div>
 
-        <div className="flex justify-end items-center">
-          <Typography.Text>
+        <div className="flex justify-end items-center py-2">
+          <Typography.Text className="!font-bold">
             Total Price:{" "}
             {formatCurrency(
               shoppingCartStore.products.reduce(
@@ -394,6 +394,10 @@ export default function Pay() {
               <Typography.Text>
                 Amazon accepts all major credit and debit cards:
               </Typography.Text>
+
+              <div className="w-5 h-10 py-2">
+                <Image width={200} height={100} preview={false} src="assets/visa.png" />
+              </div>
             </div>
           </Col>
         </Row>
