@@ -139,7 +139,7 @@ export default function Pay() {
   return (
     <Row>
       {contextHolder}
-      <Col span={12}>
+      <Col xs={24} md={12}>
         <div>
           <div className="border p-4">
             <div className="py-2">
@@ -225,7 +225,7 @@ export default function Pay() {
           </div>
         </div>
       </Col>
-      <Col span={12} className="px-4">
+      <Col xs={24} md={12} className="px-4">
         <div className="mb-2 border p-4 ">
           <div className="min-h-[46px] max-h-[450px] overflow-y-auto">
             {map(shoppingCartStore.products, (item, index) => {
@@ -328,7 +328,7 @@ export default function Pay() {
               <SafetyCertificateFilled /> 100% secure payment
             </Typography>
 
-            <Image alt="" src="assets/visa.png" />
+            <Image alt="" src="assets/visa.png" preview={false} />
           </div>
         </div>
       </Col>
