@@ -237,7 +237,7 @@ export default function Pay() {
                         preview={false}
                         alt="example"
                         src={`${S3_URL}/${item?.s3Key}`}
-                        className="!w-40 !h-40"
+                        className="!w-40 !h-30"
                       />
                     </div>
                     <div className="px-4">
@@ -251,22 +251,33 @@ export default function Pay() {
                           localStorage.getItem("lang")
                         )}
                       </Typography.Paragraph>
-                      <Typography.Paragraph strong className="!mb-0">
-                        {langStore.lang.location}: &nbsp;
-                        {item?.location}
-                      </Typography.Paragraph>
-                      <Typography.Paragraph strong className="!mb-0">
-                        {langStore.lang.vehicleMake}: &nbsp;
-                        {item?.vehicleMake}
-                      </Typography.Paragraph>
-                      <Typography.Paragraph strong className="!mb-0">
-                        {langStore.lang.interiorName}: &nbsp;
-                        {item?.interiorName}
-                      </Typography.Paragraph>
-                      <Typography.Paragraph strong className="!mb-0">
-                        {langStore.lang.exteriorName}: &nbsp;
-                        {item?.exteriorName}
-                      </Typography.Paragraph>
+                      {item?.location && (
+                        <Typography.Paragraph strong className="!mb-0">
+                          {langStore.lang.location}: &nbsp;
+                          {item?.location}
+                        </Typography.Paragraph>
+                      )}
+
+                      {item?.vehicleMake && (
+                        <Typography.Paragraph strong className="!mb-0">
+                          {langStore.lang.vehicleMake}: &nbsp;
+                          {item?.vehicleMake}
+                        </Typography.Paragraph>
+                      )}
+
+                      {item?.interiorName && (
+                        <Typography.Paragraph strong className="!mb-0">
+                          {langStore.lang.interiorName}: &nbsp;
+                          {item?.interiorName}
+                        </Typography.Paragraph>
+                      )}
+
+                      {item?.exteriorName && (
+                        <Typography.Paragraph strong className="!mb-0">
+                          {langStore.lang.exteriorName}: &nbsp;
+                          {item?.exteriorName}
+                        </Typography.Paragraph>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -291,22 +302,22 @@ export default function Pay() {
         <div className="p-4 border ">
           <div className="my-2">
             <Typography className="font-bold">
-              <SafetyCertificateFilled /> Mua với sự an tâm
+              <SafetyCertificateFilled /> Buy with peace of mind
             </Typography>
           </div>
 
           <div className="">
             <p>
-              <LikeFilled /> Đảm bảo hoàn tiền trong 30 ngày
+              <LikeFilled /> 30-day money-back guarantee
             </p>
             <p>
-              <LikeFilled /> Miễn phí vận chuyển và trả hàng
+              <LikeFilled /> Free shipping and returns
             </p>
             <p>
-              <LikeFilled /> Bảo hành 12 tháng
+              <LikeFilled /> 12-month warranty{" "}
             </p>
             <p>
-              <LikeFilled /> Chất lượng đảm bảo, không có phí phụ thu
+              <LikeFilled /> Guaranteed quality, no additional fees{" "}
             </p>
           </div>
         </div>
@@ -408,6 +419,7 @@ export default function Pay() {
               </Typography.Paragraph>
               <div className="w-5 h-10 py-2">
                 <Image
+                  alt=""
                   width={200}
                   height={100}
                   preview={false}

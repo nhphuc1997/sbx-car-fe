@@ -24,6 +24,9 @@ export default function MainBar() {
   const shoppingCartStore = useShoppingCartStore((state: any) => state);
   const [open, setOpen] = useState(false);
 
+  console.log(shoppingCartStore.products);
+  
+
   return (
     <div className="px-2 py-3 md:py-4 md:px-10 border">
       <Drawer
@@ -58,7 +61,7 @@ export default function MainBar() {
               iconPosition={"start"}
               block
               onClick={() => {
-                router.push("/phone");
+                router.push("/phones");
                 setOpen(false);
               }}
             >

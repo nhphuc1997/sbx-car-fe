@@ -18,14 +18,17 @@ import StepPayment from "./StepPayment";
 import { useLangStore } from "@/stores/lang.store";
 import { useShoppingCartStore } from "@/stores/shopping-cart.store";
 import { useCarStore } from "@/stores/car.store";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { usePhoneStore } from "@/stores/phone.store";
 
 export default function Order() {
   const router = useRouter();
+  const path = usePathname();
   const [api, contextHolder] = notification.useNotification();
   const langStore = useLangStore((state: any) => state);
   const shoppingCartStore = useShoppingCartStore((state: any) => state);
   const carStore = useCarStore((state: any) => state);
+  const phoneStore = usePhoneStore((state: any) => state);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -46,7 +49,13 @@ export default function Order() {
             block
             className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
             icon={<ShoppingCartOutlined className="" />}
-            onClick={() => addToCart(carStore.car)}
+            onClick={() =>
+              addToCart(
+                path.split("/").includes("phones")
+                  ? phoneStore.phone
+                  : carStore.car
+              )
+            }
           >
             {langStore.lang.add_to_cart}
           </Button>
