@@ -1,53 +1,12 @@
-import { Affix, Col, Empty, Image, Row, Skeleton, Typography } from "antd";
+import { Col, Image, Row, Typography } from "antd";
 import Order from "../orders/Order";
-import BookATestDriver from "../book-a-test-driver/BookATestDriver";
-import { useParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { doGet } from "@/utils/doMethod";
-import { map } from "lodash";
 import { S3_URL } from "@/utils/aws";
-import { useTabStore } from "@/stores/tab.store";
-import { getUrlsBaseOn } from "@/utils/tab";
-import { useUser } from "@clerk/nextjs";
 
 interface Props {
   dataInfor?: Record<string, any>;
 }
 
 export default function PhoneImage({ dataInfor }: Props) {
-  const { id } = useParams();
-  const tabStore = useTabStore((state: any) => state);
-  const { user } = useUser();
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["get-exterior", [id, tabStore.tab]],
-    queryFn: async () => {
-      const endpoint: any = getUrlsBaseOn(tabStore.tab);
-
-      return await doGet(endpoint, {
-        s: JSON.stringify({ carId: id }),
-      });
-    },
-  });
-
-  if (isLoading) {
-    return (
-      <div>
-        <Row gutter={8}>
-          <Col xs={24} md={18} className="pt-2">
-            <Skeleton.Image active={true} className="!w-full !h-[500px]" />
-          </Col>
-          <Col xs={24} md={6} className="pt-2 space-y-5">
-            <Skeleton.Input active={true} className="!h-[110px] !w-full" />
-            <Skeleton.Input active={true} className="!h-[110px] !w-full" />
-            <Skeleton.Input active={true} className="!h-[110px] !w-full" />
-            <Skeleton.Input active={true} className="!h-[110px] !w-full" />
-          </Col>
-        </Row>
-      </div>
-    );
-  }
-
   return (
     <div className="">
       <Row gutter={8}>
@@ -62,24 +21,25 @@ export default function PhoneImage({ dataInfor }: Props) {
 
         <Col xs={24} md={6} className="pt-2">
           <div className="flex flex-col h-[492px] justify-between">
-            <div className="!h-[450px] overflow-y-auto">
-              <Row gutter={8} className="">
-                {map(data?.data, (asset, index) => (
-                  <Col span={12} key={index} className="pb-2">
-                    <div
-                      className=" bg-center bg-cover bg-no-repeat bg-slate-100 h-[100px]"
-                      style={{
-                        backgroundImage: `url(${S3_URL}/${asset?.s3Key})`,
-                      }}
-                    />
-                  </Col>
-                ))}
-              </Row>
-            </div>
-
             <div className="pt-2 flex flex-col items-end justify-end space-y-2">
               <Order />
-              <BookATestDriver />
+            </div>
+
+            <div className="p-4 border">
+              <div className="flex justify-start items-center">
+                <Image
+                  className="!w-40 !h-40"
+                  alt=""
+                  preview={false}
+                  src="https://m.media-amazon.com/images/G/01/marketing/prime/logos/established/2021/prime-logo-rgb-prime-blue._CB601899009_.svg"
+                />
+                <div className="pl-2">
+                  <Typography.Paragraph className="!m-0">
+                    Free fast delivery. No order minimum. Exclusive savings.
+                    Start your 30-day free trial of Prime.
+                  </Typography.Paragraph>
+                </div>
+              </div>
             </div>
           </div>
         </Col>

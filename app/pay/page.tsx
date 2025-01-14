@@ -317,7 +317,7 @@ export default function Pay() {
               <SafetyCertificateFilled /> Thanh toán an toàn 100%
             </Typography>
 
-            <Image src="assets/visa.png" />
+            <Image alt="" src="assets/visa.png" />
           </div>
         </div>
       </Col>
