@@ -1,6 +1,5 @@
 "use client";
 import PhoneImage from "@/components/phone/PhoneImage";
-import ProductImage from "@/components/products/ProductImage";
 import ProductInfor from "@/components/products/ProductInfor";
 import { usePhoneStore } from "@/stores/phone.store";
 import { doGet } from "@/utils/doMethod";

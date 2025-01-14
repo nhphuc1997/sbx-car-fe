@@ -20,11 +20,14 @@ import { useShoppingCartStore } from "@/stores/shopping-cart.store";
 import { useCarStore } from "@/stores/car.store";
 import { usePathname, useRouter } from "next/navigation";
 import { usePhoneStore } from "@/stores/phone.store";
+import { useUser } from "@clerk/nextjs";
 
 export default function Order() {
   const router = useRouter();
   const path = usePathname();
   const [api, contextHolder] = notification.useNotification();
+  const { isSignedIn, user } = useUser();
+
   const langStore = useLangStore((state: any) => state);
   const shoppingCartStore = useShoppingCartStore((state: any) => state);
   const carStore = useCarStore((state: any) => state);
@@ -66,7 +69,16 @@ export default function Order() {
             block
             className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
             icon={<PayCircleOutlined className="" />}
-            onClick={() => router.push("/pay")}
+            onClick={() => {
+              if (!isSignedIn) {
+                api.info({
+                  message: `System notification`,
+                  description: `You must be login to perform this action`,
+                });
+                return
+              }
+              router.push("/pay");
+            }}
             disabled={shoppingCartStore.products?.length <= 0}
           >
             {langStore.lang.pay}
