@@ -11,16 +11,7 @@ export default function FilterPhone() {
         <Input
           placeholder="Phone's name"
           value={filterStore.nameVehicleFilter}
-          onChange={(e) => filterStore.setNameVehicleFilter(e.target.value)}
-        />
-      </Col>
-      <Col span={4}>
-        <Select
-          value={filterStore.categoryFilter}
-          className="w-full"
-          placeholder="Phone's brand"
-          options={filterStore.categoryOptions}
-          onChange={(e) => filterStore.setCategoryFilter(e)}
+          onChange={(e) => filterStore.setNamePhoneFilter(e.target.value)}
         />
       </Col>
       <Col span={3}>

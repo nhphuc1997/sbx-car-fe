@@ -2,8 +2,7 @@ import { create } from 'zustand'
 
 export const useFilterPhoneStore = create((set) => ({
   namePhoneFilter: null,
-  categoryFilter: null,
-  colorFilter: null,
+  colorPhoneFilter: null,
   colorOptions: [
     { label: "Red", value: "red" },
     { label: "Blue", value: "blue" },
@@ -11,14 +10,19 @@ export const useFilterPhoneStore = create((set) => ({
     { label: "Black", value: "black" },
     { label: "Another", value: "another" },
   ],
-  categoryOptions: null,
+  categoryOptions: [
+    { label: 'Apple', value: 'Apple' },
+    { label: 'Samsung', value: 'Samsung' },
+    { label: 'Oppo', value: 'Oppo' },
+    { label: 'Xiaomi', value: 'Xiaomi' },
+    { label: 'Vivo', value: 'Vivo' },
+    { label: 'Honor', value: 'Honor' },
+    { label: 'Realme', value: 'Realme' },
+  ],
   setNamePhoneFilter: (value: string) => set(() => ({ namePhoneFilter: value })),
-  setCategyOptions: (value: string) => set(() => ({ categoryOptions: value })),
-  setCategoryFilter: (value: string) => set(() => ({ categoryFilter: value })),
   setColorFilter: (value: string) => set(() => ({ colorFilter: value })),
   resetFilter: () => {
     set(() => ({ namePhoneFilter: null }))
-    set(() => ({ categoryFilter: null }))
-    set(() => ({ colorFilter: null }))
+    set(() => ({ colorPhoneFilter: null }))
   }
 }))

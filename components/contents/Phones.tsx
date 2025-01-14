@@ -1,4 +1,5 @@
 "use client";
+import { useFilterPhoneStore } from "@/stores/filter-phone.store";
 import { useFilterStore } from "@/stores/filter.store";
 import { useLangStore } from "@/stores/lang.store";
 import { S3_URL } from "@/utils/aws";
@@ -20,16 +21,15 @@ export default function Phones({ numberItem = 6 }: Props) {
   const router = useRouter();
   const path = usePathname();
   const langStore = useLangStore((state: any) => state);
-  const filterStore = useFilterStore((state: any) => state);
+  const filterPhoneStore = useFilterPhoneStore((state: any) => state);
 
   const { data, isLoading } = useQuery({
     queryKey: [
       "get-phones",
       [
-        filterStore.namePhoneFilter,
-        filterStore.categoryFilter,
-        filterStore.colorFilter,
-        filterStore.yearFilter,
+        filterPhoneStore.namePhoneFilter,
+        filterPhoneStore.categoryFilter,
+        filterPhoneStore.colorFilter,
         path,
       ],
     ],
@@ -39,26 +39,21 @@ export default function Phones({ numberItem = 6 }: Props) {
       }
 
       const $filter: any = {};
-      if (!isEmpty(filterStore.namePhoneFilter)) {
+      if (!isEmpty(filterPhoneStore.namePhoneFilter)) {
         $filter["$or"] = [
-          { name: { $cont: filterStore.namePhoneFilter } },
-          { code: { $cont: filterStore.namePhoneFilter } },
+          { name: { $cont: filterPhoneStore.namePhoneFilter } },
+          { code: { $cont: filterPhoneStore.namePhoneFilter } },
+          { categoryName: { $cont: filterPhoneStore.namePhoneFilter } },
         ];
       }
 
-      if (filterStore.categoryFilter) {
-        $filter["categoryId"] = filterStore.categoryFilter;
-      }
-
-      if (filterStore.colorFilter) {
-        $filter["color"] = filterStore.colorFilter;
+      if (filterPhoneStore.colorFilter) {
+        $filter["color"] = filterPhoneStore.colorFilter;
       }
 
       return await doGet("/phones", { s: JSON.stringify($filter) });
     },
   });
-
-  console.log(data, "data");
 
   if (isLoading) {
     return (
