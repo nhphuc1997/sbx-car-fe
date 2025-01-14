@@ -50,7 +50,7 @@ export default function Order() {
       {path.split("/").includes("phones") && (
         <div className="mb-2">
           <Typography.Paragraph className="!m-0">
-            <Typography.Text className="!font-bold">Category</Typography.Text>{" "}
+            <Typography.Text className="!font-bold">Brand</Typography.Text>{" "}
             <Typography.Text className="!font-thin">
               {phoneStore.phone?.categoryName}
             </Typography.Text>{" "}
