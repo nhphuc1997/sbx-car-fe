@@ -100,11 +100,21 @@ export default function MainBar() {
                 </Button>
               )}
 
-              <Button
-                className="!bg-[#ad9d6f] !text-white !block md:!hidden"
-                icon={<LoginOutlined />}
-                onClick={() => openSignIn()}
-              />
+              {!isSignedIn && (
+                <Button
+                  className="!bg-[#ad9d6f] !text-white !block md:!hidden"
+                  icon={<LoginOutlined />}
+                  onClick={() => openSignIn()}
+                />
+              )}
+
+              {isSignedIn && (
+                <Button
+                  className="!bg-[#ad9d6f] !text-white !block md:!hidden"
+                  icon={<LogoutOutlined />}
+                  onClick={() => signOut()}
+                />
+              )}
             </div>
           </div>
         </Col>
