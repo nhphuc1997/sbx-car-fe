@@ -324,8 +324,8 @@ export default function Pay() {
 
         <div className="py-2">
           <div className="p-4 border ">
-            <Typography className="font-bold">
-              <SafetyCertificateFilled /> Thanh toán an toàn 100%
+            <Typography className="font-bold pb-2">
+              <SafetyCertificateFilled /> 100% secure payment
             </Typography>
 
             <Image alt="" src="assets/visa.png" />
