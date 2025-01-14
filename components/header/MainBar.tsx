@@ -69,12 +69,7 @@ export default function MainBar() {
       </Drawer>
 
       <Row>
-        <Col
-          xs={4}
-          md={6}
-          className="cursor-pointer"
-          onClick={() => router.push("/")}
-        >
+        <Col xs={4} md={6} className="cursor-pointer">
           <div className="flex justify-start items-center !h-12">
             <MenuOutlined onClick={() => setOpen(true)} />
           </div>
