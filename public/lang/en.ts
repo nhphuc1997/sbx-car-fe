@@ -36,4 +36,5 @@ export default {
   vehicleMake: "VehicleMake",
   interiorName: "Interior Name",
   exteriorName: "Exterior Name",
+  phones: "Phones",
 };

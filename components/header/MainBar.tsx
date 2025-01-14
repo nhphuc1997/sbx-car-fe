@@ -1,17 +1,20 @@
 "use client";
 import { useLangStore } from "@/stores/lang.store";
 import {
+  CarFilled,
   LoginOutlined,
   LogoutOutlined,
   MenuOutlined,
+  PhoneFilled,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Badge, Button, Col, Image, Row, Segmented } from "antd";
+import { Badge, Button, Col, Drawer, Image, Row, Segmented } from "antd";
 import { useRouter } from "next/navigation";
 import en from "@/public/lang/en";
 import vi from "@/public/lang/vi";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { useShoppingCartStore } from "@/stores/shopping-cart.store";
+import { useState } from "react";
 
 export default function MainBar() {
   const { isSignedIn, user } = useUser();
@@ -19,9 +22,52 @@ export default function MainBar() {
   const router = useRouter();
   const langStore = useLangStore((state: any) => state);
   const shoppingCartStore = useShoppingCartStore((state: any) => state);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="px-2 py-3 md:py-4 md:px-10 border">
+      <Drawer
+        title="Menu"
+        placement={"left"}
+        closable={true}
+        onClose={() => setOpen(false)}
+        open={open}
+      >
+        <div className="gap-y-4">
+          <div>
+            <Button
+              className="!bg-[#ad9d6f] !text-white"
+              icon={<CarFilled />}
+              type="text"
+              iconPosition={"start"}
+              block
+              onClick={() => {
+                router.push("/products");
+                setOpen(false);
+              }}
+            >
+              SBX Car
+            </Button>
+          </div>
+
+          <div className="py-4">
+            <Button
+              className="!bg-[#ad9d6f] !text-white py-4"
+              icon={<PhoneFilled />}
+              type="text"
+              iconPosition={"start"}
+              block
+              onClick={() => {
+                router.push("/phone");
+                setOpen(false);
+              }}
+            >
+              SBX Phone
+            </Button>
+          </div>
+        </div>
+      </Drawer>
+
       <Row>
         <Col
           xs={4}
@@ -30,7 +76,7 @@ export default function MainBar() {
           onClick={() => router.push("/")}
         >
           <div className="flex justify-start items-center !h-12">
-            <MenuOutlined />
+            <MenuOutlined onClick={() => setOpen(true)} />
           </div>
         </Col>
         <Col
