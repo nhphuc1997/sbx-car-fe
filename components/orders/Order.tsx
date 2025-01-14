@@ -21,6 +21,7 @@ import { useCarStore } from "@/stores/car.store";
 import { usePathname, useRouter } from "next/navigation";
 import { usePhoneStore } from "@/stores/phone.store";
 import { useUser } from "@clerk/nextjs";
+import { formatCurrency } from "@/utils/format-currency";
 
 export default function Order() {
   const router = useRouter();
@@ -46,6 +47,33 @@ export default function Order() {
   return (
     <div className="w-full">
       {contextHolder}
+      {path.split("/").includes("phones") && (
+        <div className="mb-2">
+          <Typography.Paragraph className="!m-0">
+            <Typography.Text className="!font-bold">Category</Typography.Text>{" "}
+            <Typography.Text className="!font-thin">
+              {phoneStore.phone?.categoryName}
+            </Typography.Text>{" "}
+          </Typography.Paragraph>
+
+          <Typography.Paragraph className="!m-0">
+            <Typography.Text className="!font-bold">Code</Typography.Text>{" "}
+            <Typography.Text className="!font-thin">
+              {phoneStore.phone?.code}
+            </Typography.Text>{" "}
+          </Typography.Paragraph>
+
+          <Typography.Paragraph className="!m-0">
+            <Typography.Text className="!font-bold">Price</Typography.Text>{" "}
+            <Typography.Text className="!font-thin">
+              {formatCurrency(
+                phoneStore.phone?.price,
+                localStorage.getItem("lang")
+              )}
+            </Typography.Text>{" "}
+          </Typography.Paragraph>
+        </div>
+      )}
       <div className="w-full flex gap-2">
         <div className="w-1/2">
           <Button
@@ -75,7 +103,7 @@ export default function Order() {
                   message: `System notification`,
                   description: `You must be login to perform this action`,
                 });
-                return
+                return;
               }
               router.push("/pay");
             }}
@@ -86,16 +114,18 @@ export default function Order() {
         </div>
       </div>
 
-      <div className="pt-2">
-        <Button
-          block
-          className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
-          icon={<ShopOutlined className="absolute left-2.5 top-1 bottom-1" />}
-          onClick={() => setOpenDrawer(true)}
-        >
-          {langStore.lang.place_order}
-        </Button>
-      </div>
+      {!path.split("/").includes("phones") && (
+        <div className="pt-2">
+          <Button
+            block
+            className="!bg-white !text-[#ad9d6f] !border-[#ad9d6f] hover:!bg-[#ad9d6f] hover:!text-white relative"
+            icon={<ShopOutlined className="absolute left-2.5 top-1 bottom-1" />}
+            onClick={() => setOpenDrawer(true)}
+          >
+            {langStore.lang.place_order}
+          </Button>
+        </div>
+      )}
 
       <Drawer
         placement={"right"}
