@@ -36,8 +36,8 @@ export default function MainBar() {
         <div className="gap-y-4">
           <div>
             <Button
-              className="!bg-[#ad9d6f] !text-white"
-              icon={<CarFilled />}
+              className="!bg-[#ad9d6f] !text-white relative"
+              icon={<CarFilled className="absolute left-2.5 top-1 bottom-1" />}
               type="text"
               iconPosition={"start"}
               block
@@ -52,8 +52,8 @@ export default function MainBar() {
 
           <div className="py-4">
             <Button
-              className="!bg-[#ad9d6f] !text-white py-4"
-              icon={<PhoneFilled />}
+              className="!bg-[#ad9d6f] !text-white py-4 relative"
+              icon={<PhoneFilled className="absolute left-2.5 top-1 bottom-1" />}
               type="text"
               iconPosition={"start"}
               block
