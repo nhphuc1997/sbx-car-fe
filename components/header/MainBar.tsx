@@ -103,6 +103,7 @@ export default function MainBar() {
               <Button
                 className="!bg-[#ad9d6f] !text-white !block md:!hidden"
                 icon={<LoginOutlined />}
+                onClick={() => openSignIn()}
               />
             </div>
           </div>

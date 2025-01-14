@@ -77,22 +77,10 @@ export default function ProductImage({ dataInfor }: Props) {
               </Row>
             </div>
 
-            {user && (
-              <div className="pt-2 flex flex-col items-end justify-end space-y-2">
-                <Order />
-                <BookATestDriver />
-              </div>
-            )}
-
-            {!user && (
-              <Empty
-                description={
-                  <Typography.Text>
-                    You must be login to perform this action
-                  </Typography.Text>
-                }
-              />
-            )}
+            <div className="pt-2 flex flex-col items-end justify-end space-y-2">
+              <Order />
+              <BookATestDriver />
+            </div>
           </div>
         </Col>
       </Row>
